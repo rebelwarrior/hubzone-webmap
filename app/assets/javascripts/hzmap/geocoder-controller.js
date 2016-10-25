@@ -1,20 +1,5 @@
 console.log("In the geocoder controller");
 
-var map = {};
-var infoWindow = {};
-var apiKey = 'AIzaSyCpZgPsZxJzCFXoLpduWMeDRssxFKr6kR0';
-var currentFeatures = [];
-var geocodeQuery = '';
-
-var geomWFSSettings = {
-  db: 'hubzone-test',
-  table: 'largeIndianLands',
-  srs: '4326',
-  viewparams: [
-    'area_thresh:5000'
-  ].join(';')
-};
-
 // callback from index.html to execute the geocode command
 function geocode(ev){
   geocodeQuery = $('#queryInput').val() || ' ';

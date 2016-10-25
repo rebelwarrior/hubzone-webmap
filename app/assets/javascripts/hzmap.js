@@ -11,3 +11,21 @@
 // about supported directives.
 //
 //= require_tree ./hzmap
+
+//defining global variables for hubzone map controllers
+var map = {}; //the map object
+var infoWindow = {}; //infowindow object
+var apiKey = 'AIzaSyCpZgPsZxJzCFXoLpduWMeDRssxFKr6kR0'; //google maps api key
+var currentFeatures = []; // geojson featureCollection of features currently loaded into map
+var geocodeQuery = ''; // string of geocodequery from input text
+
+//geoserver WFS URL parameters
+var geomWFSSettings = {
+  db: 'hubzone-test',
+  table: 'indianlands_2014',
+  srs: '4326',
+  viewparams: [
+    'area_thresh:0',
+    'scale:1'
+  ].join(';')
+};
