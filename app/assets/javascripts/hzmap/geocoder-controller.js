@@ -1,6 +1,6 @@
 console.log("In the geocoder controller");
 
-// callback from index.html to execute the geocode command
+// callback to catch click on geocoder button to execute the geocode command
 function geocode(ev){
   geocodeQuery = $('#queryInput').val() || ' ';
   console.log(geocodeQuery);
@@ -26,6 +26,7 @@ function geocodingError(resp){
 function parseGeocodeResult(resp){
 
   // lookup table of messages to send to XXXX for all geocoder responses except for 'OK' - which is a valid geocoder respose
+  // maybe rework this since sometimes these are actual 4XX errors that $.ajax sends to geocodingError
   var geocoderRespMessages = {
     'ERROR': 'There was a problem contacting the geocoder servers.',
     'INVALID_REQUEST': 'Invalid geocoder request.',
@@ -37,6 +38,9 @@ function parseGeocodeResult(resp){
 
   console.log('geocoder response: ' + resp.status);
   $('#geocodingResults').html('');
+  //if its a valid response with >= 1 result, we can do stuff with it
+  // build out a list with in-line coordinate data and move to the location 
+  // of the first result, generally the 'best' match from the geocoder 
   if (resp.status === 'OK'){ 
     resp.results.forEach(function(result) {
       $('#geocodingResults').append(
@@ -54,32 +58,29 @@ function parseGeocodeResult(resp){
 };
 
 // move map and display geocoding results if the ajax is successful
-// does not have special handling for no results, except it just doesn't
-// do anything
 function jumpToLocation(geocodeLocation){
 
-  // poll the geoserver api for the hubzone intersect command
   console.log(geocodeLocation);
   var location = [geocodeLocation.lng, geocodeLocation.lat].join('%20');
     
-    /* 
-      DEV COMMENT:
-      need to look into differences in the CQL_filter between WFS versions.
-      the CQL_FILTER=INTERSECTS operation only works on version 1.0.0, not on 1.1.0 or 2.0.0
-      according to the geoserver docs, there is not expected to a performance difference 
-      between the versions for this type of operation and settings.
-    */
-    var intersectUrl = [
-      'http://localhost:8080/geoserver/hubzone-test/ows?service=WFS', 
-      'version=1.0.0', 
-      'request=GetFeature', 
-      'typename=' + geomWFSSettings.db + ':' + geomWFSSettings.table,
-      'viewparams=' + geomWFSSettings.viewparams,
-      'outputFormat=application/json',
-      'srsname=EPSG:'+ geomWFSSettings.srs,
-      'cql_filter=INTERSECTS(geom,%20POINT(' + location + '))'
-    ].join('&');
+  /* 
+    Differences in the CQL_filter between WFS versions:
+    the CQL_FILTER=INTERSECTS operation only works like below on version 1.0.0, not on 1.1.0 or 2.0.0
+    according to the geoserver docs, there is not expected to a performance difference 
+    between the versions for this type of operation and settings.
+  */
+  var intersectUrl = [
+    geomWFSSettings.urlRoot, 
+    'version=1.0.0', 
+    'request=GetFeature', 
+    'typename=' + geomWFSSettings.db + ':' + geomWFSSettings.table,
+    'viewparams=' + geomWFSSettings.viewparams,
+    'outputFormat=application/json',
+    'srsname=EPSG:'+ geomWFSSettings.srs,
+    'cql_filter=INTERSECTS(geom,%20POINT(' + location + '))'
+  ].join('&');
 
+  // poll the geoserver api for the hubzone intersect command
   $.ajax({
     url: intersectUrl, 
     success: function(resp) {

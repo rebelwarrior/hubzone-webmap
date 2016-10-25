@@ -115,7 +115,7 @@ function initMap() {
       //   'bbox=' + bbox + ',EPSG:4326';
 
       var url = [
-        'http://localhost:8080/geoserver/hubzone-test/ows?service=WFS', 
+        geomWFSSettings.urlRoot, 
         'version=1.0.0', 
         'request=GetFeature', 
         'typename=' + geomWFSSettings.db + ':' + geomWFSSettings.table,
