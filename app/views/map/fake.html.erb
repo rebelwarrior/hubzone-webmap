@@ -4,7 +4,6 @@
     <title>GoogleMaps API Demo</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <%= javascript_include_tag "hzmap" %>
-    <%= javascript_include_tag "google-maps-api.js" %>
     <%#
     <script type="text/javascript" src="./js/google-maps-api.js"></script>
     %>
@@ -20,8 +19,8 @@
     <div id="header">
         <div id="search-control-ui">
           <p>Enter a query to geocode, or click on the map to reverse geocode.</p>
-          <input id="query-input" autofocus="">
-          <input id="geocode-button" type="button" value="Geocode" onclick="geocode();">
+          <input id="queryInput" autofocus="">
+          <input id="geocodeButton" type="button" value="Geocode">
         </div>
         <div id="geocodingResultContainer">
           <h4>Geocoding Results</h4>
