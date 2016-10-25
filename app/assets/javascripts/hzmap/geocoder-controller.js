@@ -97,3 +97,9 @@ function jumpToLocation(geocodeLocation){
       console.log(resp)
   });
 };
+
+//callback for when they click on a table result, takes event and access the data property
+function parseLocationFromElement(ev){
+  jumpToLocation($(ev.currentTarget).data('coord'));
+};
+

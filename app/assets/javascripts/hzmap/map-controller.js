@@ -1,11 +1,8 @@
 console.log("In the map controller");
 
-//callback for when they click on a table result, takes event and access the data property
-function parseLocationFromElement(ev){
-  jumpToLocation($(ev.currentTarget).data('coord'));
-};
-
 //callback for building a popup on map data click
+// can also be called from other operations as well
+// takes a google maps position object and a boolean to declare qualified or not 
 function showPopUp(position, qualified){
   console.log('map clicked');
 
@@ -64,14 +61,10 @@ function showPopUp(position, qualified){
 //create the map on load and handle styling, build in event listeners
 function initMap() {
 
-
-  //DOM listeners
-  $('#geocodeButton').on('click', geocode);
-
   $.getJSON('./config/gray_style.json').then(function(resp) {
     var googleMapsStyleConfig = resp;
 
-    // Styles a map in night mode.
+    // Styles a map
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 35.5, lng: -97.5},
       zoom: 9,
@@ -80,9 +73,9 @@ function initMap() {
       zoomControlOptions: {
         position: google.maps.ControlPosition.TOP_LEFT
       }
-
     });
 
+    // Map Listeners
     //add listeners to map and features for special callbacks
     map.data.addListener('click', function(ev){
       if (ev.feature.getProperty('objectid') !== null && ev.feature.getProperty('objectid') !== undefined ){
@@ -92,27 +85,20 @@ function initMap() {
 
     //adds a listener for clicks on the basemap
     map.addListener('click', function(ev){ 
-
+      showPopUp(position = ev.latLng, qualified = false);
     });
 
     //adds listener for map idle, to fetch based on new bounds and refetch map, then redraw as needed
     map.addListener('idle', function(){
       console.log('i\'m idle, redrawing map');
+      
       var mapBounds = map.getBounds();
-
+      //maybe add a zoom specific padding to the bbox, to get a few more outside, like double
       var NELat = mapBounds.getNorthEast().lat();
       var NELng = mapBounds.getNorthEast().lng();
       var SWLat = mapBounds.getSouthWest().lat();
       var SWLng = mapBounds.getSouthWest().lng();
       var bbox = [SWLng, SWLat, NELng, NELat].join(',');
-
-      // var url = 'http://localhost:8080/geoserver/hubzone-test/ows?service=WFS&' + 
-      //   'version=2.0.0&' + 
-      //   'request=GetFeature&' + 
-      //   'typename=' + geomWFSSettings.db + ':' + geomWFSSettings.table+ '&' +
-      //   'outputFormat=application/json&' +
-      //   'srsname=EPSG:'+ geomWFSSettings.srs +'&' +
-      //   'bbox=' + bbox + ',EPSG:4326';
 
       var url = [
         geomWFSSettings.urlRoot, 
@@ -125,9 +111,11 @@ function initMap() {
         'bbox=' + bbox + ',EPSG:4326'
       ].join('&');
 
-
       $.ajax(url, {
         success: function(resp){
+          // on successful fetch of new features in the bbox, compare old with new and update the map
+          // here would be useful to refactor code to potentially even only add or remove
+          // features as needed, instead of dumping and redrawing all features if one is added at a margin
           if (resp.totalFeatures > 0){
             //create a new array of booleans if each new object is in the existing display 
             var newFeaturesIDs = [];
@@ -151,27 +139,27 @@ function initMap() {
       });
 
       // color based on area levels
-      var colorArr = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33'];
-      var levels = [0, 4500, 9000, 13500, 18000, 22500];
+      var colorArr = ['#e1f3f8','#9bdaf1','#00a6d2','#046b99'];
+      var levels = [0, 9000, 13500, 18000];
 
       //perform some stlying of features based on some rules, in this case arbitrary levels based on size. 
       map.data.setStyle(function(feature) {
-        // var area = parseInt(feature.getProperty('land_area'));
-        // var levelIndex = levels.filter((level) => level < area).length;
+        var area = parseInt(feature.getProperty('land_area'));
+        var levelIndex = levels.filter((level) => level < area).length;
 
-        // var color = colorArr[levelIndex];
-        var color = '#205493';
+        var color = colorArr[levelIndex];
+        // var color = '#205493';
         return {
           fillColor: color,
           opacity: 0.75,
           strokeWeight: 1
         }
       });
-
     });
 
     infoWindow = new google.maps.InfoWindow;
 
+    //callback to close the sidebar when the infowindow pop up is clicked
     // google.maps.event.addListener(infoWindow, 'closeclick', function(){
     //   $('#sidebarControl').remove();
     // });

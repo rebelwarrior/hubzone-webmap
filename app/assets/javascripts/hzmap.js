@@ -13,6 +13,7 @@
 //= require_tree ./hzmap
 
 //defining global variables for hubzone map controllers
+"use strict";
 var map = {}; //the map object
 var infoWindow = {}; //infowindow object
 var apiKey = 'AIzaSyCpZgPsZxJzCFXoLpduWMeDRssxFKr6kR0'; //google maps api key
@@ -32,3 +33,7 @@ var geomWFSSettings = {
     'scale:1'
   ].join(';') 
 };
+
+
+//declare DOM element listeners
+$('#geocodeButton').on('click', geocode);
