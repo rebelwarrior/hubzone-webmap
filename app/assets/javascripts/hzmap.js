@@ -26,13 +26,14 @@ var geocodeQuery = ''; // string of geocodequery from input text
 var geomWFSSettings = {
   urlRoot: 'http://localhost:8080/geoserver/hubzone-test/ows?service=WFS',
   db: 'hubzone-test',
-  table: 'indianlands_2014',
+  table: 'il_geom_lowres', //'indian_lands'  'indianlands_2014_doug' 'il_geom_lowres'
   srs: '4326',
   viewparams: [
     'area_thresh:0',
     'scale:1'
   ].join(';') 
 };
+
 
 
 //declare DOM element listeners

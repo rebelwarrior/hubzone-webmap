@@ -21,40 +21,45 @@ function showPopUp(position, qualified){
 
   // working with custom map control elements
 
-  // $('#sidebarControl').remove();
+  $('#sidebarControl').remove();
 
-  // // Create a div to hold the control.
-  // var controlDiv = document.createElement('div');
-  // controlDiv.id = 'sidebarControl';
-  // controlDiv.style.height = '100%';
-  // controlDiv.style.width = '15%';
+  // Create a div to hold the control.
+  var controlDiv = document.createElement('div');
+  controlDiv.id = 'sidebarControl';
+  controlDiv.style.height = '100%';
+  controlDiv.style.width = '15%';
 
-  // // Set CSS for the control border
-  // var controlUI = document.createElement('div');
-  // controlUI.style.backgroundColor = '#fff';
-  // controlUI.style.border = '1px solid #333';
-  // controlUI.style.cursor = 'pointer';
-  // controlUI.style.marginBottom = '22px';
-  // controlUI.style.textAlign = 'center';
-  // controlUI.style.height = '100%';
-  // controlUI.style.width = '100%';
-  // controlUI.title = 'Click to recenter the map';
-  // controlDiv.appendChild(controlUI);
+  // Set CSS for the control border
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = '#fff';
+  controlUI.style.border = '1px solid #333';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.marginBottom = '22px';
+  controlUI.style.textAlign = 'center';
+  controlUI.style.height = '100%';
+  controlUI.style.width = '100%';
+  controlUI.title = 'Click to recenter the map';
+  controlDiv.appendChild(controlUI);
 
-  // // Set CSS for the control interior
-  // var controlText = document.createElement('div');
-  // controlText.style.color = 'rgb(25,25,25)';
-  // controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-  // controlText.style.fontSize = '16px';
-  // controlText.style.lineHeight = '38px';
-  // controlText.style.paddingLeft = '5px';
-  // controlText.style.paddingRight = '5px';
-  // // controlText.style.height = '100%';
-  // // controlText.style.width = '100%';
-  // controlText.innerHTML = status;
-  // controlUI.appendChild(controlText);
+  // Set CSS for the control interior
+  var controlText = document.createElement('div');
+  controlText.style.color = 'rgb(25,25,25)';
+  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlText.style.fontSize = '16px';
+  controlText.style.lineHeight = '38px';
+  controlText.style.paddingLeft = '5px';
+  controlText.style.paddingRight = '5px';
+  // controlText.style.height = '100%';
+  // controlText.style.width = '100%';
+  controlText.innerHTML = status;
+  controlUI.appendChild(controlText);
 
-  // map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv)
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv)
+
+  // callback to close the sidebar when the infowindow pop up is clicked
+  google.maps.event.addListener(infoWindow, 'closeclick', function(){
+    $('#sidebarControl').remove();
+  });
 
 };
 
@@ -71,14 +76,14 @@ function initMap() {
       styles: googleMapsStyleConfig,
       zoomControl: true, 
       zoomControlOptions: {
-        position: google.maps.ControlPosition.TOP_LEFT
+        position: google.maps.ControlPosition.TOP_RIGHT
       }
     });
 
     // Map Listeners
     //add listeners to map and features for special callbacks
     map.data.addListener('click', function(ev){
-      if (ev.feature.getProperty('objectid') !== null && ev.feature.getProperty('objectid') !== undefined ){
+      if (ev.feature.getProperty('id') !== null && ev.feature.getProperty('id') !== undefined ){
         showPopUp(position = ev.latLng, qualified = true);
       }
     });
@@ -120,7 +125,7 @@ function initMap() {
             //create a new array of booleans if each new object is in the existing display 
             var newFeaturesIDs = [];
             var newFeatures = resp.features.map(function(feature){
-              var featureID = feature.properties['objectid']
+              var featureID = feature.properties['id']
               newFeaturesIDs.push(featureID)
               return currentFeatures.includes(featureID);
             });
@@ -159,10 +164,7 @@ function initMap() {
 
     infoWindow = new google.maps.InfoWindow;
 
-    //callback to close the sidebar when the infowindow pop up is clicked
-    // google.maps.event.addListener(infoWindow, 'closeclick', function(){
-    //   $('#sidebarControl').remove();
-    // });
+
 
     return map;
   });
