@@ -14,7 +14,7 @@ function showPopUp(position, qualified){
   
   var popUpTemplate = '';
   var status = qualified ? 'Qualified' : 'Not Qualified';
-  popUpTemplate += '<h4>' + status + '</h4>'
+  popUpTemplate += '<h4> Location is ' + status + '</h4>'
   infoWindow.setContent(popUpTemplate);
   infoWindow.setPosition(position);
   infoWindow.open(map);
@@ -35,7 +35,7 @@ function showPopUp(position, qualified){
 function updateMap(){
   console.log('i\'m idle, redrawing map');
   
-  
+
 
   var mapBounds = map.getBounds();
   //maybe add a zoom specific padding to the bbox, to get a few more outside, like double
