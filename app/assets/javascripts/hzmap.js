@@ -18,7 +18,9 @@ var map = {}; //the map object
 var infoWindow = {}; //infowindow object
 var apiKey = 'AIzaSyCpZgPsZxJzCFXoLpduWMeDRssxFKr6kR0'; //google maps api key
 var currentFeatures = []; // geojson featureCollection of features currently loaded into map
+var currentFeaturesIDs = [];
 var geocodeQuery = ''; // string of geocodequery from input text
+var geomUniqID = 'id';
 
 //geoserver WFS URL parameters
 //viewparams may not always be used, and is available in case a view
@@ -26,7 +28,7 @@ var geocodeQuery = ''; // string of geocodequery from input text
 var geomWFSSettings = {
   urlRoot: 'http://localhost:8080/geoserver/hubzone-test/ows?service=WFS',
   db: 'hubzone-test',
-  table: 'il_geom_lowres', //'indian_lands'  'indianlands_2014_doug' 'il_geom_lowres'
+  table: 'indianlands_2014', //'indian_lands'  'indianlands_2014_doug' 'il_geom_lowres'
   srs: '4326',
   viewparams: [
     'area_thresh:0',

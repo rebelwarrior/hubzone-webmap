@@ -54,7 +54,7 @@ function showPopUp(position, qualified){
   controlText.innerHTML = status;
   controlUI.appendChild(controlText);
 
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv)
+  // map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv)
 
   // callback to close the sidebar when the infowindow pop up is clicked
   google.maps.event.addListener(infoWindow, 'closeclick', function(){
@@ -83,7 +83,7 @@ function initMap() {
     // Map Listeners
     //add listeners to map and features for special callbacks
     map.data.addListener('click', function(ev){
-      if (ev.feature.getProperty('id') !== null && ev.feature.getProperty('id') !== undefined ){
+      if (ev.feature.getProperty('gid') !== null && ev.feature.getProperty('gid') !== undefined ){
         showPopUp(position = ev.latLng, qualified = true);
       }
     });
@@ -119,29 +119,49 @@ function initMap() {
       $.ajax(url, {
         success: function(resp){
           // on successful fetch of new features in the bbox, compare old with new and update the map
-          // here would be useful to refactor code to potentially even only add or remove
-          // features as needed, instead of dumping and redrawing all features if one is added at a margin
           if (resp.totalFeatures > 0){
-            //create a new array of booleans if each new object is in the existing display 
-            var newFeaturesIDs = [];
-            var newFeatures = resp.features.map(function(feature){
-              var featureID = feature.properties['id']
-              newFeaturesIDs.push(featureID)
-              return currentFeatures.includes(featureID);
-            });
-            //if any are not included, redraw.
-            if (newFeatures.some(function(x){return x === false;})){
-              currentFeatures = newFeaturesIDs;
-              map.data.forEach(function(feature){map.data.remove(feature);});
+            //if the currentFeatures is empty, just add it all
+            if (currentFeaturesIDs.length === 0){
+              console.log('no other features, adding all');
               map.data.addGeoJson(resp);
-            } else {
-              console.log('new fetch, matches current, do nothing');
+              for (var i = resp.features.length - 1; i >= 0; i--) {
+                currentFeaturesIDs.push(resp.features[i].properties[geomUniqID]);
+              }
+            } else {       
+              var newFeaturesIDs = [];
+              var newFeatures = resp.features.map(function(feature){
+                var featureID = feature.properties[geomUniqID]
+                newFeaturesIDs.push(featureID)
+                return feature;
+              });
+
+              var updatedFeaturesIDs = [];
+
+              for (var i = newFeaturesIDs.length - 1; i >= 0; i--) {
+                if (!currentFeaturesIDs.includes(newFeaturesIDs[i])){
+                  console.log('adding a new feature');
+                  map.data.addGeoJson(newFeatures[i])
+                  updatedFeaturesIDs.push(newFeaturesIDs[i]);
+                } 
+              }
+
+              map.data.forEach(function(feature){
+                var featureID = feature.f[geomUniqID];
+                if (!newFeaturesIDs.includes(featureID)){
+                  console.log('removing a feature');
+                  map.data.remove(feature);
+                } else {
+                  updatedFeaturesIDs.push(featureID);
+                }
+              });
+
+              currentFeaturesIDs = updatedFeaturesIDs;
             }
           } else {
             console.log('no features returned');
           }
         }
-      });
+      }, map);
 
       // color based on area levels
       var colorArr = ['#e1f3f8','#9bdaf1','#00a6d2','#046b99'];
