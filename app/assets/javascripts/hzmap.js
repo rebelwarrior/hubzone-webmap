@@ -17,7 +17,6 @@
 var map = {}; //the map object
 var infoWindow = {}; //infowindow object
 var apiKey = 'AIzaSyCpZgPsZxJzCFXoLpduWMeDRssxFKr6kR0'; //google maps api key
-var currentFeatures = []; // geojson featureCollection of features currently loaded into map
 var currentFeaturesIDs = [];
 var geocodeQuery = ''; // string of geocodequery from input text
 var geomUniqID = 'id';
