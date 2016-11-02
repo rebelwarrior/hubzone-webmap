@@ -16,6 +16,14 @@ function initMap() {
 
   //adds listener that triggers whenever the map is idle to update with new features.
   google.maps.event.addListener(map, 'idle', updateMap);
+
+  //map click event listeners
+  //grabs a click on the map / basemap / no data layer
+  google.maps.event.addListener(map, 'click', queryMapClick);
+  
+  //grabs a click on the data layer of the map
+  map.data.addListener('click', queryMapClick);
+  
   //returns the map as a promise
   return map;
 };

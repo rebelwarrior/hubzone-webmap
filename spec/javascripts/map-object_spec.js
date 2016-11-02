@@ -34,8 +34,7 @@ var mockData = {
   }
 };
 
-
-describe ('Testing map operations', function() {
+describe ("Testing map operations", function() {
 
   it("map loads with properties", function() {
     expect(window.map).toBeDefined();
@@ -50,5 +49,10 @@ describe ('Testing map operations', function() {
     window.map.data.addGeoJson(mockData);;
     var hasData = window.map.data.contains(mockData)
     expect(hasData).toBe(true);
+  });
+
+  // test for what happens when the map gets clicked
+  it ("returns a lat lng on map click", function(){
+    expect(window.mapClick.lat).toBeDefined();
   });
 });
