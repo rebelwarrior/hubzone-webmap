@@ -19,10 +19,10 @@ function initMap() {
 
   //map click event listeners
   //grabs a click on the map / basemap / no data layer
-  google.maps.event.addListener(map, 'click', queryMapClick);
+  google.maps.event.addListener(map, 'click', parseMapClick);
   
   //grabs a click on the data layer of the map
-  map.data.addListener('click', queryMapClick);
+  map.data.addListener('click', parseMapClick);
   
   //returns the map as a promise
   return map;
