@@ -17,7 +17,7 @@ function setMapOnAll(map) {
 // add a marker to the map, removing any other markers
 /* exported updateMarkers */
 function updateMarkers(geocodeLocation){
-  clearMarkers();  
+  mapMarkers = clearMarkers();  
   if (geocodeLocation !== null && geocodeLocation !== undefined){
     var marker = new google.maps.Marker({
       position: geocodeLocation,
@@ -26,4 +26,6 @@ function updateMarkers(geocodeLocation){
     });
     mapMarkers.push(marker);
   }
+  console.log(mapMarkers);
+  return mapMarkers;
 }

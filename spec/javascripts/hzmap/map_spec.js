@@ -175,7 +175,7 @@ var mapClick = {
   }
 };
 
-var mapMarkers = [ Marker]
+var mapMarkers = [ Marker ]
 
 var mockFeaturesToRemove = ['hz_current_lowestres.601'];
 
@@ -316,15 +316,15 @@ describe ('Testing map operations', function() {
     updateMarkers(markerLocation);
     expect(google.maps.Marker.calls.count()).toEqual(1);
     expect(Marker.setMap.calls.count()).toEqual(1);
+    console.log(mapMarkers);
     expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
+    setMap.restore();
   });
 
-  xit("should empty the  marker object", function(){
-    //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
-    var markerSpy = spyOn(google.maps, 'Marker');
+  it("should empty the  marker object", function(){
     var markerSetSpy = spyOn(Marker, 'setMap');
-
-    updateMarkers();
+    var mapMarkers = updateMarkers(null);
+    expect(Marker.setMap.calls.count()).toEqual(1);
     expect(mapMarkers.length).toEqual(0); 
   });
 
@@ -335,9 +335,6 @@ describe ('Testing map operations', function() {
   });
 
 });
-
-
-
 
 var mockData1 = {
   "type": "FeatureCollection",
