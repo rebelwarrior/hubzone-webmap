@@ -68,6 +68,10 @@ describe ('Testing sidebar operations', function() {
     $('button.usa-accordion-button').trigger('click');
     expect($('#test_button').attr('aria-expanded')).toEqual("true");
     expect($('#indian_lands').attr('aria-hidden')).toEqual("false");
-  });
+    $('button.usa-accordion-button').trigger('click');
+    expect($('#test_button').attr('aria-expanded')).toEqual("false");
+    expect($('#indian_lands').attr('aria-hidden')).toEqual("true");
+      
+      });
 
 });
