@@ -51,7 +51,7 @@ function triggerSidebar(){
 
 /* exported updateAccordions */
 function updateAccordions () {
-  $('button.usa-accordion-button').on('click', triggerAccordion);
+  $('#hubzone-qualifications button.usa-accordion-button').on('click', triggerAccordion);
 }
 
 // event handler for clicks on an accorion button
