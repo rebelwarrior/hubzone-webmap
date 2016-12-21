@@ -1,6 +1,6 @@
 //defining global variables for hubzone map controllers
 var map = {}; //the map object
-
+var mapIdleListener; //the map idle listener
 //create the map on load, when idle, jump to updateMap to get features
 /* exported initMap */
 function initMap() {
@@ -24,7 +24,7 @@ function initMap() {
   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
 
   // adds listener that triggers whenever the map is idle to update with new features.
-  google.maps.event.addListener(map, 'idle', updateIdleMap);
+  mapIdleListener = google.maps.event.addListener(map, 'idle', updateIdleMap);
 
   map.addListener('click', catchMapClick);
 

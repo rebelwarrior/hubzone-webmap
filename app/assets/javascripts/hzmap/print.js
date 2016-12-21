@@ -57,8 +57,9 @@ function beforePrint() {
   mapZoom = map.getZoom();
 
   $('.map-body').addClass('printable-map');
+  google.maps.event.removeListener(mapIdleListener);
   google.maps.event.trigger(map, 'resize');
-  map.fitBounds(mapBounds);
+  // map.fitBounds(mapBounds);
 
   if (mapMarkers.length > 0){
     map.setCenter(mapMarkers[0].position);
@@ -75,6 +76,8 @@ function beforePrint() {
 //reset the map after print
 function afterPrint() {
   $('.map-body').removeClass('printable-map');
+  //add back in the map listener
+  mapIdleListener = google.maps.event.addListener(map, 'idle', updateIdleMap);
   google.maps.event.trigger(map, 'resize');
   map.setCenter(mapCenter);
   map.setZoom(mapZoom);
