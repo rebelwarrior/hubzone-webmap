@@ -56,9 +56,11 @@ function beforePrint() {
   mapCenter = map.getCenter();
   mapZoom = map.getZoom();
 
+
   $('.map-body').addClass('printable-map');
   google.maps.event.trigger(map, 'resize');
-  map.fitBounds(mapBounds);
+  google.maps.event.removeListener(mapIdleListener);
+  // map.fitBounds(mapBounds);
 
   if (mapMarkers.length > 0){
     map.setCenter(mapMarkers[0].position);
