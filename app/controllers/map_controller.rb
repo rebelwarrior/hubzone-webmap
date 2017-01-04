@@ -36,9 +36,27 @@ class MapController < ApplicationController
     end
   end
 
+  def show
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "show",
+               template: 'map/show.pdf.erb',
+               footer: {
+                  center: "Center",
+                  left: "Left",
+                  right: "Right"
+                 }
+      end
+    end
+  end
+
   private
 
   def connection
     Excon.new(MAP_CONFIG[:hubzone_api_host])
   end
+
+
 end

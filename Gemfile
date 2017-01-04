@@ -11,6 +11,8 @@ gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
+gem 'wicked_pdf' # Convert html to pdf
+gem 'wkhtmltopdf-binary' # Needed for wicked_pdf
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'

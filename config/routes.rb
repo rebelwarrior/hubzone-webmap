@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   get 'search', to: 'map#search'
 
   get 'aws-hc', to: 'health_check#status'
+
+  get 'show', to: 'map#show'
 end
