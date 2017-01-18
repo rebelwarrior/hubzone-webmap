@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html>
-<body>
+<head>
+<%= stylesheet_link_tag 'map-report', media: 'all' %>
+<%= image_tag("sba-logo.png", id: "sba-logo", alt: "U.S. Small Business Administration logo") %>
+<%= javascript_include_tag "map-report" %>
+</head>
+<body onload="loadPage()">
 
-<img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&key=AIzaSyC_csaLXMscbO5cayEkuvoC0_jexoG6-Y0" />
 
+<div id="maps">
+
+<%= image_tag("", id: "qct-image", alt: "qct") %>
+<%= image_tag("", id: "marker", alt: "marker") %>
+<%= image_tag("", id: "qnmc-image", alt: "qnmc") %>
+<%= image_tag("", id: "il-image", alt: "il") %>
+<%= image_tag("", id: "map-image", alt: "map") %>
+</div>
 
 </body>
 </html>

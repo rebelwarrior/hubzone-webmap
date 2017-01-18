@@ -17,3 +17,6 @@ Rails.application.config.assets.paths <<
 Rails.application.config.assets.precompile += %w(google-maps-api.js)
 Rails.application.config.assets.precompile += %w(hzmap.js)
 Rails.application.config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg)
+
+Rails.application.config.assets.precompile += %w( map-report.css )
+Rails.application.config.assets.precompile += %w( map-report.js )

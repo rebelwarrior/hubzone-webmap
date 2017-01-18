@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<%= wicked_pdf_stylesheet_link_tag 'map-report', media: 'all' %>
-
-<%= wicked_pdf_javascript_include_tag "http://code.jquery.com/jquery-1.10.0.min.js" %>
-</head>
-<body onload="map_report">
-<script>
-    $(document).ready(function() {
 // baltimore harbor
 var center = {
  lat: 39.26642,
@@ -223,20 +213,3 @@ var styles = {
   qct: "SLD_BODY=%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%3CStyledLayerDescriptor%20xmlns%3D%22http%3A%2F%2Fwww.opengis.net%2Fsld%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20xmlns%3Axsi%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema-instance%22%20version%3D%221.0.0%22%20xsi%3AschemaLocation%3D%22http%3A%2F%2Fwww.opengis.net%2Fsld%20StyledLayerDescriptor.xsd%22%3E%3CNamedLayer%3E%3CName%3Ehubzone-test%3Aqct%3C%2FName%3E%3CUserStyle%3E%3CFeatureTypeStyle%3E%3CRule%3E%3CName%3Enot%20expiring%3C%2FName%3E%3Cogc%3AFilter%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3AFunction%20name%3D%22isNull%22%3E%3Cogc%3APropertyName%3Eexpires%3C%2Fogc%3APropertyName%3E%3C%2Fogc%3AFunction%3E%3Cogc%3ALiteral%3Etrue%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E%3CPolygonSymbolizer%3E%3CFill%3E%3CCssParameter%20name%3D%22fill%22%3E%234DAF4A%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22fill-opacity%22%3E0.5%3C%2FCssParameter%3E%3C%2FFill%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%234DAF4A%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FPolygonSymbolizer%3E%3C%2FRule%3E%3CRule%3E%3CName%3Eexpiring%3C%2FName%3E%3Cogc%3AFilter%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3AFunction%20name%3D%22isNull%22%3E%3Cogc%3APropertyName%3Eexpires%3C%2Fogc%3APropertyName%3E%3C%2Fogc%3AFunction%3E%3Cogc%3ALiteral%3Efalse%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E%3CPolygonSymbolizer%3E%3CFill%3E%3CGraphicFill%3E%3CGraphic%3E%3CMark%3E%3CWellKnownName%3Eshape%3A%2F%2Fbackslash%3C%2FWellKnownName%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%234DAF4A%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FMark%3E%3CSize%3E16%3C%2FSize%3E%3C%2FGraphic%3E%3C%2FGraphicFill%3E%3C%2FFill%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%234DAF4A%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FPolygonSymbolizer%3E%3C%2FRule%3E%3C%2FFeatureTypeStyle%3E%3C%2FUserStyle%3E%3C%2FNamedLayer%3E%3C%2FStyledLayerDescriptor%3E",
   qnmc: "SLD_BODY=%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%3CStyledLayerDescriptor%20xmlns%3D%22http%3A%2F%2Fwww.opengis.net%2Fsld%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20xmlns%3Axsi%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema-instance%22%20version%3D%221.0.0%22%20xsi%3AschemaLocation%3D%22http%3A%2F%2Fwww.opengis.net%2Fsld%20StyledLayerDescriptor.xsd%22%3E%3CNamedLayer%3E%3CName%3Ehubzone-test%3Aqnmc%3C%2FName%3E%3CUserStyle%3E%3CFeatureTypeStyle%3E%3CRule%3E%3CName%3Enot%20expiring%3C%2FName%3E%3Cogc%3AFilter%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3AFunction%20name%3D%22isNull%22%3E%3Cogc%3APropertyName%3Eexpires%3C%2Fogc%3APropertyName%3E%3C%2Fogc%3AFunction%3E%3Cogc%3ALiteral%3Etrue%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E%3CPolygonSymbolizer%3E%3CFill%3E%3CCssParameter%20name%3D%22fill%22%3E%23377EB8%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22fill-opacity%22%3E0.5%3C%2FCssParameter%3E%3C%2FFill%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%23377EB8%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FPolygonSymbolizer%3E%3C%2FRule%3E%3CRule%3E%3CName%3Eexpiring%3C%2FName%3E%3Cogc%3AFilter%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3AFunction%20name%3D%22isNull%22%3E%3Cogc%3APropertyName%3Eexpires%3C%2Fogc%3APropertyName%3E%3C%2Fogc%3AFunction%3E%3Cogc%3ALiteral%3Efalse%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E%3CPolygonSymbolizer%3E%3CFill%3E%3CGraphicFill%3E%3CGraphic%3E%3CMark%3E%3CWellKnownName%3Eshape%3A%2F%2Fbackslash%3C%2FWellKnownName%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%23377EB8%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FMark%3E%3CSize%3E16%3C%2FSize%3E%3C%2FGraphic%3E%3C%2FGraphicFill%3E%3C%2FFill%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%23377EB8%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FPolygonSymbolizer%3E%3C%2FRule%3E%3C%2FFeatureTypeStyle%3E%3C%2FUserStyle%3E%3C%2FNamedLayer%3E%3C%2FStyledLayerDescriptor%3E"
 };
-
-  });
-</script>
-
-<%= wicked_pdf_image_tag("sba-logo.png", id: "sba-logo", alt: "U.S. Small Business Administration logo") %>
-
-<div id="maps">
-
-<%= wicked_pdf_image_tag("", id: "qct-image", alt: "qct") %>
-<%= wicked_pdf_image_tag("", id: "marker", alt: "marker") %>
-<%= wicked_pdf_image_tag("", id: "qnmc-image", alt: "qnmc") %>
-<%= wicked_pdf_image_tag("", id: "il-image", alt: "il") %>
-<%= wicked_pdf_image_tag("", id: "map-image", alt: "map") %>
-</div>
-
-</body>
-</html>

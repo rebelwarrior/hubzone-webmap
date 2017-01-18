@@ -43,6 +43,7 @@ class MapController < ApplicationController
       format.pdf do
         render pdf: "show",
                template: 'map/show.pdf.erb',
+               javascript_delay:  3000,
                footer: {
                   center: "Center",
                   left: "Left",
