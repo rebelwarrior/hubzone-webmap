@@ -51,10 +51,10 @@
 
         // baltimore
         var center = {
-         lat: 39.31916, 
-         lng: -76.6165
+         lat: 39.26180, 
+         lng: -76.58003
         };
-        var zoom = 12;
+        var zoom = 11;
         var check = []
 
         // // usa
@@ -100,7 +100,6 @@
         var scale = 1;
 
         var bbox = latLngToBbox(center.lat, center.lng, zoom, width, height, 256);
-        console.log(bbox);
 
         document.getElementById('qnmc-image').src = buildWMSUrl({
           bbox: bbox.join(','),
@@ -149,7 +148,6 @@
         for (var i = 0; i < addresses.length; i++) {
           toOrigin = [addresses[i][1] - upperLeft[0], upperLeft[1] -  addresses[i][2]]
           toPixels = [parseInt(toOrigin[0] * xscale), parseInt(toOrigin[1] * yscale)]
-          console.log(toPixels) 
           markersSvg = document.getElementById('marker');
           circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
           circle.setAttribute("cx",toPixels[0]);
@@ -194,8 +192,6 @@
         bbox.n = tile2Lat(ytile_n, zoom);
         webMSW = toWebMercator(bbox.w, bbox.s);
         webMNE = toWebMercator(bbox.e, bbox.n);
-        console.log(webMSW, webMNE);
-        // return [bbox.w, bbox.s, bbox.e, bbox.n];
         return [webMSW[0], webMSW[1], webMNE[0], webMNE[1]]  
 
       }
