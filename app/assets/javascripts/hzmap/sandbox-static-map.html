@@ -2,15 +2,11 @@
 <html>
   <head>
     <style>
-      #mapStatic {
-        height: 512px;
-        width: 512px;
-      }
       #maps {
-        height: 100%;
-        width: 100%;
-        text-align: center;
-        vertical-align: center;
+        width: 512px;
+        height: 512px;
+        background: #eee;
+        position: absolute;
       }
       #map-image {
         position: absolute;
@@ -37,37 +33,43 @@
         left: 0;
       }
       #marker {
-        position: relative;
-        z-index: 4; 
-        /*top: 0;*/
-        left: 0;
+        position: absolute;
+        z-index: 4;
       }
     </style>
     <script type="text/javascript">
       
       function loadPage(){
 
-        // baltimore harbor
+        // // baltimore docks
+        // var center = {
+        //  lat: 39.26642, 
+        //  lng: -76.57007
+        // };
+        // var zoom = 17;
+        // var check = []
+
+        // baltimore
         var center = {
-         lat: 39.26642, 
-         lng: -76.57007
+         lat: 39.31916, 
+         lng: -76.6165
         };
-        var zoom = 17;
+        var zoom = 12;
         var check = []
 
-        // usa
-        var center = {
-         lat: 37.09024, 
-         lng: -95.44922
-        };
-        var zoom = 5;
+        // // usa
+        // var center = {
+        //  lat: 37.09024, 
+        //  lng: -95.44922
+        // };
+        // var zoom = 5;
 
-        // earth
-        var center = {
-         lat: 0, 
-         lng: 0
-        };
-        var zoom = 1;
+        // // earth
+        // var center = {
+        //  lat: 0, 
+        //  lng: 0
+        // };
+        // var zoom = 2;
 
         // // // 4 corners
         // // var center = {
@@ -77,13 +79,13 @@
         // // var zoom = 10;
         // // var check = []
 
-        // // // texas  multicolor
-        // // var center = {
-        // //   lat: 33.95020, 
-        // //   lng: -99.37134
-        // // };
-        // // var zoom = 8;
-        // // var check = []
+        // // texas  multicolor
+        // var center = {
+        //   lat: 33.95020, 
+        //   lng: -99.37134
+        // };
+        // var zoom = 8;
+        // var check = []
 
         // // texas  downtown
         // var center = {
@@ -128,12 +130,34 @@
           scale: scale,
           zoom: zoom  
         }); 
+
+        addAddressesToMap(addresses, 'maps', bbox, height, width);
       };
 
       // ////////////////
       // coordinate converters
       // ////////////////
 
+      function addAddressesToMap(addresses, mapsDiv, bbox, height, width){
+        sw = toWGS84(bbox[0], bbox[1]);
+        ne = toWGS84(bbox[2], bbox[3]);
+        upperLeft = [sw[0], ne[1]];
+        lat_range = ne[1] - sw[1];
+        lng_range = ne[0] - sw[0];
+        yscale = height / lat_range;
+        xscale = width / lng_range;
+        for (var i = 0; i < addresses.length; i++) {
+          toOrigin = [addresses[i][1] - upperLeft[0], upperLeft[1] -  addresses[i][2]]
+          toPixels = [parseInt(toOrigin[0] * xscale), parseInt(toOrigin[1] * yscale)]
+          console.log(toPixels) 
+          markersSvg = document.getElementById('marker');
+          circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          circle.setAttribute("cx",toPixels[0]);
+          circle.setAttribute("cy",toPixels[1]);
+          circle.setAttribute("r",5);
+          markersSvg.appendChild(circle);
+        }
+      };
 
       function getTileNumber(lat, lng, zoom){
         var xtile, ytile;
@@ -262,18 +286,51 @@
         qct: "SLD_BODY=%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%3CStyledLayerDescriptor%20xmlns%3D%22http%3A%2F%2Fwww.opengis.net%2Fsld%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20xmlns%3Axsi%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema-instance%22%20version%3D%221.0.0%22%20xsi%3AschemaLocation%3D%22http%3A%2F%2Fwww.opengis.net%2Fsld%20StyledLayerDescriptor.xsd%22%3E%3CNamedLayer%3E%3CName%3Ehubzone-test%3Aqct%3C%2FName%3E%3CUserStyle%3E%3CFeatureTypeStyle%3E%3CRule%3E%3CName%3Enot%20expiring%3C%2FName%3E%3Cogc%3AFilter%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3AFunction%20name%3D%22isNull%22%3E%3Cogc%3APropertyName%3Eexpires%3C%2Fogc%3APropertyName%3E%3C%2Fogc%3AFunction%3E%3Cogc%3ALiteral%3Etrue%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E%3CPolygonSymbolizer%3E%3CFill%3E%3CCssParameter%20name%3D%22fill%22%3E%234DAF4A%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22fill-opacity%22%3E0.5%3C%2FCssParameter%3E%3C%2FFill%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%234DAF4A%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FPolygonSymbolizer%3E%3C%2FRule%3E%3CRule%3E%3CName%3Eexpiring%3C%2FName%3E%3Cogc%3AFilter%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3AFunction%20name%3D%22isNull%22%3E%3Cogc%3APropertyName%3Eexpires%3C%2Fogc%3APropertyName%3E%3C%2Fogc%3AFunction%3E%3Cogc%3ALiteral%3Efalse%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E%3CPolygonSymbolizer%3E%3CFill%3E%3CGraphicFill%3E%3CGraphic%3E%3CMark%3E%3CWellKnownName%3Eshape%3A%2F%2Fbackslash%3C%2FWellKnownName%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%234DAF4A%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FMark%3E%3CSize%3E16%3C%2FSize%3E%3C%2FGraphic%3E%3C%2FGraphicFill%3E%3C%2FFill%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%234DAF4A%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FPolygonSymbolizer%3E%3C%2FRule%3E%3C%2FFeatureTypeStyle%3E%3C%2FUserStyle%3E%3C%2FNamedLayer%3E%3C%2FStyledLayerDescriptor%3E",
         qnmc: "SLD_BODY=%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%3CStyledLayerDescriptor%20xmlns%3D%22http%3A%2F%2Fwww.opengis.net%2Fsld%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20xmlns%3Axsi%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema-instance%22%20version%3D%221.0.0%22%20xsi%3AschemaLocation%3D%22http%3A%2F%2Fwww.opengis.net%2Fsld%20StyledLayerDescriptor.xsd%22%3E%3CNamedLayer%3E%3CName%3Ehubzone-test%3Aqnmc%3C%2FName%3E%3CUserStyle%3E%3CFeatureTypeStyle%3E%3CRule%3E%3CName%3Enot%20expiring%3C%2FName%3E%3Cogc%3AFilter%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3AFunction%20name%3D%22isNull%22%3E%3Cogc%3APropertyName%3Eexpires%3C%2Fogc%3APropertyName%3E%3C%2Fogc%3AFunction%3E%3Cogc%3ALiteral%3Etrue%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E%3CPolygonSymbolizer%3E%3CFill%3E%3CCssParameter%20name%3D%22fill%22%3E%23377EB8%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22fill-opacity%22%3E0.5%3C%2FCssParameter%3E%3C%2FFill%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%23377EB8%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FPolygonSymbolizer%3E%3C%2FRule%3E%3CRule%3E%3CName%3Eexpiring%3C%2FName%3E%3Cogc%3AFilter%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3AFunction%20name%3D%22isNull%22%3E%3Cogc%3APropertyName%3Eexpires%3C%2Fogc%3APropertyName%3E%3C%2Fogc%3AFunction%3E%3Cogc%3ALiteral%3Efalse%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E%3CPolygonSymbolizer%3E%3CFill%3E%3CGraphicFill%3E%3CGraphic%3E%3CMark%3E%3CWellKnownName%3Eshape%3A%2F%2Fbackslash%3C%2FWellKnownName%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%23377EB8%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FMark%3E%3CSize%3E16%3C%2FSize%3E%3C%2FGraphic%3E%3C%2FGraphicFill%3E%3C%2FFill%3E%3CStroke%3E%3CCssParameter%20name%3D%22stroke%22%3E%23377EB8%3C%2FCssParameter%3E%3CCssParameter%20name%3D%22stroke-width%22%3E1.25%3C%2FCssParameter%3E%3C%2FStroke%3E%3C%2FPolygonSymbolizer%3E%3C%2FRule%3E%3C%2FFeatureTypeStyle%3E%3C%2FUserStyle%3E%3C%2FNamedLayer%3E%3C%2FStyledLayerDescriptor%3E"
       };      
+
+      var addresses = [
+        ["5200 Eastern Ave, BALTIMORE, MD, 21224",-76.553505,39.28721],
+        ["2400 E Eager St, BALTIMORE, MD, 21205",-76.5834,39.30184],
+        ["2200 Ruskin Ave, BALTIMORE, MD, 21217",-76.64816,39.31481],
+        ["400 Homeland Ave, BALTIMORE, MD, 21212",-76.61484,39.353924],
+        ["6600 Holabird Ave, BALTIMORE, MD, 21224",-76.53388,39.272453],
+        ["700 Gladstone Ave, BALTIMORE, MD, 21210",-76.63152,39.354088],
+        ["800 Exeter Hall Ave, BALTIMORE, MD, 21218",-76.60666,39.32265],
+        ["100 E 28th St, BALTIMORE, MD, 21218",-76.61564,39.322018],
+        ["5900 Belair Rd, BALTIMORE, MD, 21206",-76.54126,39.345413],
+        ["1100 Horners Ln, BALTIMORE, MD, 21205",-76.55113,39.30497],
+        ["1600 E Biddle St, BALTIMORE, MD, 21213",-76.59652,39.304256],
+        ["2000 W Cold Spring Ln, BALTIMORE, MD, 21215",-76.64939,39.345085],
+        ["2300 Calverton Heights Ave, BALTIMORE, MD, 21216",-76.6535,39.29777],
+        ["1700 Broening Hwy, BALTIMORE, MD, 21224",-76.543434,39.27289],
+        ["2700 St Paul St, BALTIMORE, MD, 21218",-76.61561,39.320778],
+        ["2300 Eutaw Pl, BALTIMORE, MD, 21217",-76.6354,39.311863],
+        ["3900 Springdale Ave, BALTIMORE, MD, 21207",-76.68449,39.32533],
+        ["3500 Holmes Ave, BALTIMORE, MD, 21217",-76.65005,39.318745],
+        ["900 Forrest St, BALTIMORE, MD, 21202",-76.60773,39.300144],
+        ["7100 Supply Ave, BALTIMORE, MD, 21237",-76.53629,39.31224],
+        ["5800 Kipling Ct, BALTIMORE, MD, 21212",-76.6058,39.36198],
+        ["1300 Asbury Rd, BALTIMORE, MD, 21209",-76.64947,39.37066],
+        ["1000 W 36th St, BALTIMORE, MD, 21211",-76.63274,39.331123],
+        ["1900 Madison Ave, BALTIMORE, MD, 21217",-76.63291,39.307915],
+        ["700 E 35th St, BALTIMORE, MD, 21218",-76.6063,39.33072],
+        ["5500 Summerfield Ave, BALTIMORE, MD, 21206",-76.541695,39.333206],
+        ["5300 Purlington Way, BALTIMORE, MD, 21212",-76.61775,39.359665],
+        ["1800 N Pulaski St, BALTIMORE, MD, 21217",-76.65128,39.308743],
+        ["5100 Linden Heights Ave, BALTIMORE, MD, 21215",-76.68169,39.342537],
+        ["test",-76.58003,39.26180]
+      ];
     </script>
   </head>
   <body onload="loadPage()">
-    <h3>My Google Maps Demo</h3>
-    <div id="mapStatic">
+  </body>
+  <body onload="loadPage()">
       <div id="maps">
+        <svg id="marker" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"></svg>
         <img id="qct-image"/>
-        <img id="marker" src="hz-marker.svg">
         <img id="qnmc-image"/>
         <img id="il-image"/>
         <img id="map-image"/>
       </div>
-    </div>
   </body>
+
 </html>
