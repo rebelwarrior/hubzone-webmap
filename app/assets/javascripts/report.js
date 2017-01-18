@@ -81,6 +81,8 @@
       scale: scale,
       zoom: zoom
     });
+
+    window.status="page_loaded_yay";
   };
 
   // ////////////////
@@ -157,7 +159,7 @@
     staticMap += "&size=" + options.width + "x" + options.height;
     staticMap += "&scale=" + options.scale;
     staticMap += "&maptype=roadmap";
-    staticMap += "&key=";
+    staticMap += "&key=AIzaSyC_csaLXMscbO5cayEkuvoC0_jexoG6-Y0";
     return staticMap;
   }
 

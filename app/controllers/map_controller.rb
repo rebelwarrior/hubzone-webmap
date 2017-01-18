@@ -42,7 +42,6 @@ class MapController < ApplicationController
       format.html
       format.pdf do
         render pdf: "show",
-               javascript_delay:  5000,
                footer: {
                   center: "Center",
                   left: "Left",
