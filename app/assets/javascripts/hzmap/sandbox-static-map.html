@@ -153,6 +153,11 @@
           circle.setAttribute("cx",toPixels[0]);
           circle.setAttribute("cy",toPixels[1]);
           circle.setAttribute("r",5);
+          if (addresses[i][0] === "test"){
+            circle.setAttribute("fill", "purple");
+          } else {
+            circle.setAttribute("fill", "black");
+          }
           markersSvg.appendChild(circle);
         }
       };
