@@ -54,7 +54,7 @@
          lat: 39.26180, 
          lng: -76.58003
         };
-        var zoom = 11;
+        var zoom = 12;
         var check = []
 
         // // usa
@@ -138,15 +138,16 @@
       // ////////////////
 
       function addAddressesToMap(addresses, mapsDiv, bbox, height, width){
-        sw = toWGS84(bbox[0], bbox[1]);
-        ne = toWGS84(bbox[2], bbox[3]);
+        sw = [bbox[0], bbox[1]];
+        ne = [bbox[2], bbox[3]];
         upperLeft = [sw[0], ne[1]];
         lat_range = ne[1] - sw[1];
         lng_range = ne[0] - sw[0];
         yscale = height / lat_range;
         xscale = width / lng_range;
         for (var i = 0; i < addresses.length; i++) {
-          toOrigin = [addresses[i][1] - upperLeft[0], upperLeft[1] -  addresses[i][2]]
+          addressWM = toWebMercator(addresses[i][1], addresses[i][2])
+          toOrigin = [addressWM[0] - upperLeft[0], upperLeft[1] -  addressWM[1]] // test across hemispheres, i think the math needs to be revised
           toPixels = [parseInt(toOrigin[0] * xscale), parseInt(toOrigin[1] * yscale)]
           markersSvg = document.getElementById('marker');
           circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -318,7 +319,8 @@
         ["5300 Purlington Way, BALTIMORE, MD, 21212",-76.61775,39.359665],
         ["1800 N Pulaski St, BALTIMORE, MD, 21217",-76.65128,39.308743],
         ["5100 Linden Heights Ave, BALTIMORE, MD, 21215",-76.68169,39.342537],
-        ["test",-76.58003,39.26180]
+        ["test",-76.58003,39.26180, "fort mchenry"],
+        ["test",-81.07361,25.13783, "tip of florida"] 
       ];
     </script>
   </head>
