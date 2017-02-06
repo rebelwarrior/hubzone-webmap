@@ -132,11 +132,18 @@ HZApp.Legend = (function(){
       $('#legend-header-title-hidden').hide();
       $('#show-legend-button').hide();
     },
+    dumpLegend: function(){
+      Object.keys(HZApp.Legend.legend).map(function(legendItem){
+        HZApp.Legend.legend[legendItem].svg = [];
+      });
+      $('.legend-item').remove();
+    },
     changeColor: function(args){
-      console.log(args);
       HZApp.WMSUtils.dropOverlays();
       HZApp.Layers.LayerDefs.hzWMSOverlays = HZApp.Layers.LayerDefs.setHZWMSOverlayStyle(args.currentTarget.value);
       google.maps.event.trigger(HZApp.map, 'idle');
+      HZApp.Legend.dumpLegend();
+      HZApp.Legend.buildLegend(HZApp.Layers.LayerDefs.hzWMSOverlays);
     }
   };
 })();
