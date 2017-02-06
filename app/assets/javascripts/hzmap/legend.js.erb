@@ -1,5 +1,11 @@
 // legend utilties
 HZApp.Legend = (function(){
+
+  $(function(){
+    var colorPicker = document.getElementById('color-picker');
+    colorPicker.addEventListener('change', HZApp.Legend.changeColor);
+  });
+
   return {
     legend: {
       'qct': {
@@ -125,6 +131,12 @@ HZApp.Legend = (function(){
       $('#legend-header-title-expanded').show();
       $('#legend-header-title-hidden').hide();
       $('#show-legend-button').hide();
+    },
+    changeColor: function(args){
+      console.log(args);
+      HZApp.WMSUtils.dropOverlays();
+      HZApp.Layers.LayerDefs.hzWMSOverlays = HZApp.Layers.LayerDefs.setHZWMSOverlayStyle(args.currentTarget.value);
+      google.maps.event.trigger(HZApp.map, 'idle');
     }
   };
 })();
