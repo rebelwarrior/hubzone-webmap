@@ -1,5 +1,12 @@
 HZApp.MapUtils = (function(){
   return {
+    mapIdleDebounce: function(){
+      var timer;
+      return function() {
+          clearTimeout(timer);
+          timer = setTimeout( HZApp.WMSUtils.updateIdleMap(HZApp.map) , 500);
+      };
+    },
     // turn latlng object into url
     catchMapClick: function(clickEvent){
       var clicklng = clickEvent.latLng.lng();
