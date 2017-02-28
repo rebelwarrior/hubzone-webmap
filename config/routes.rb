@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   app_scope = Rails.env.production? ? '/hubzone/map' : '/map'
 
   scope app_scope do
+    get 'guide', to: 'map#guide'
     get 'search', to: 'map#search'
     get 'translate', to: 'map#translate'
     get 'aws-hc', to: 'health_check#status'

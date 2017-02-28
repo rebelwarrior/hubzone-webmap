@@ -6,6 +6,12 @@ class MapController < ApplicationController
   def index
   end
 
+  def guide
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
   def search
     query = format_query params
     path = "#{MAP_CONFIG[:hubzone_api_search_path]}?#{query}"
