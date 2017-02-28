@@ -1,1 +1,8 @@
-$('body').append("<%= j render partial: 'map_guide' %>");
+$('body').prepend("<%= j render partial: 'map_guide' %>");
+
+$('.usa-overlay').addClass('is-visible');
+
+$('button.usa-button.close').click(function() {
+  $('.usa-modal').remove();
+  $('.usa-overlay').removeClass('is-visible');
+});

@@ -1,3 +1,9 @@
 .hidden {
   display: none;
 }
+.usa-overlay {
+  z-index: 1000;
+}
+.usa-overlay.is-visible {
+  opacity: 0.5;
+}
