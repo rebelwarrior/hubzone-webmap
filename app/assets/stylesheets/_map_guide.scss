@@ -1,5 +1,8 @@
 @import 'variables';
 
+.usa-overlay.is-visible {
+  opacity: 0.6;
+}
 .usa-modal-open {
   overflow: hidden;
 }
