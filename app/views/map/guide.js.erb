@@ -6,3 +6,12 @@ $('button.usa-button.close').click(function() {
   $('.usa-modal').remove();
   $('.usa-overlay').removeClass('is-visible');
 });
+
+$('.usa-modal').click(function(e) {
+    if (e.target !== this) {
+      return;
+    } else {
+      $('.usa-modal').remove();
+      $('.usa-overlay').removeClass('is-visible');
+    }
+});
