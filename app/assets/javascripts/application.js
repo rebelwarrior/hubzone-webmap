@@ -15,3 +15,6 @@
 //= require uswds
 //= require HZ
 //= require i18n/translations
+//= require react
+//= require react_ujs
+//= require components
