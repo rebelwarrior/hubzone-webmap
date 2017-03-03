@@ -1,6 +1,7 @@
 $('body').prepend("<%= j render partial: 'map_guide' %>");
 
 $('.usa-overlay').addClass('is-visible');
+$('.usa-nav').removeClass('is-visible');
 
 $('button.usa-button.close').click(function() {
   $('.usa-modal').remove();
