@@ -1,12 +1,19 @@
 @import 'variables';
 
+.usa-modal-header > h2 {
+  font-family: $font-sans;
+  margin-top: 0.5em;
+  color: $gray-dark;
+}
+.usa-modal-body > h4 {
+  margin-top: 0.5em;
+}
 .usa-overlay.is-visible {
   opacity: 0.6;
 }
 .usa-modal-open {
   overflow: hidden;
 }
-
 .usa-modal {
   position: fixed;
   top: 0;
@@ -16,8 +23,8 @@
   z-index: 1050;
   overflow: hidden;
   outline: 0;
+  font-family: $font-sans;
 }
-
 .usa-modal.fade .usa-modal-dialog {
   -webkit-transition: -webkit-transform 0.3s ease-out;
   transition: -webkit-transform 0.3s ease-out;
@@ -28,24 +35,20 @@
        -o-transform: translate(0, -25%);
           transform: translate(0, -25%);
 }
-
 .usa-modal.show .usa-modal-dialog {
   -webkit-transform: translate(0, 0);
        -o-transform: translate(0, 0);
           transform: translate(0, 0);
 }
-
 .usa-modal-open .usa-modal {
   overflow-x: hidden;
   overflow-y: auto;
 }
-
 .usa-modal-dialog {
   position: relative;
   width: auto;
   margin: 10px;
 }
-
 .usa-modal-content {
   position: relative;
   display: -webkit-box;
@@ -64,25 +67,6 @@
   border-radius: 0.3rem;
   outline: 0;
 }
-
-.usa-modal-backdrop {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1040;
-  background-color: #000;
-}
-
-.usa-modal-backdrop.fade {
-  opacity: 0;
-}
-
-.usa-modal-backdrop.show {
-  opacity: 0.5;
-}
-
 .usa-modal-header {
   display: -webkit-box;
   display: -webkit-flex;
@@ -99,12 +83,10 @@
   padding: 15px;
   border-bottom: 1px solid #eceeef;
 }
-
 .usa-modal-title {
   margin-bottom: 0;
   line-height: 1.5;
 }
-
 .usa-modal-body {
   position: relative;
   -webkit-box-flex: 1;
@@ -113,7 +95,6 @@
           flex: 1 1 auto;
   padding: 15px;
 }
-
 .usa-modal-footer {
   display: -webkit-box;
   display: -webkit-flex;
@@ -130,15 +111,12 @@
   padding: 15px;
   border-top: 1px solid #eceeef;
 }
-
 .usa-modal-footer > :not(:first-child) {
   margin-left: .25rem;
 }
-
 .usa-modal-footer > :not(:last-child) {
   margin-right: .25rem;
 }
-
 .usa-modal-scrollbar-measure {
   position: absolute;
   top: -9999px;
@@ -149,7 +127,7 @@
 
 @media (min-width: 576px) {
   .usa-modal-dialog {
-    max-width: 500px;
+    max-width: 800px;
     margin: 30px auto;
   }
   .usa-modal-sm {
