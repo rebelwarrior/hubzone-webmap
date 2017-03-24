@@ -16,6 +16,7 @@ describe ('Testing map operations', function() {
   it("should create a new Google map", function() {
     spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
     spyOn(google.maps.event, 'addListener');
+    spyOn(google.maps.event, 'addListenerOnce');
     spyOn(google.maps.places, 'Autocomplete');
     spyOn(google.maps, 'StyledMapType');
     spyOn(HZApp.map.mapTypes, 'set');
@@ -33,6 +34,7 @@ describe ('Testing map operations', function() {
 
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
+    expect(google.maps.event.addListenerOnce.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
     expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
@@ -111,4 +113,16 @@ describe ('Testing map operations', function() {
     expect(date).toEqual('2016-10-11');
   });
 
+  it("should toggle the street view layer ON", function(){
+    HZApp.MapUtils.streetViewLayer = new google.maps.StreetViewCoverageLayer();
+    HZApp.MapUtils.toggleStreetViewLayer();
+    expect(HZApp.MapUtils.streetViewLayer.getMap()).toEqual(HZApp.map);
+  });
+
+  it("should toggle the street view layer OFF", function(){
+    HZApp.MapUtils.streetViewLayer = new google.maps.StreetViewCoverageLayer();
+    HZApp.MapUtils.streetViewLayer.setMap(HZApp.map);
+    HZApp.MapUtils.toggleStreetViewLayer();
+    expect(HZApp.MapUtils.streetViewLayer.getMap()).toEqual(null);
+  });
 });

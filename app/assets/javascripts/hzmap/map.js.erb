@@ -29,12 +29,15 @@ function initMap() {
   //add in the WMS tiles
   HZApp.WMTSUtils.initializeTiles();
 
-  //add listener on the map for clciks  
+  //add listener on the map for clciks
   HZApp.WMTSUtils.addClickListeners(HZApp.map);
 
   //adds autocomplete and click listener
   HZApp.Autocomplete.createAutocomplete();
   HZApp.Autocomplete.createListener(HZApp.Autocomplete.autocomplete);
+
+  // add listener for peg man click
+  google.maps.event.addListenerOnce(HZApp.map, 'idle', HZApp.MapUtils.initializeStreetViewLayer);
 
   // build out the markers
   /* jshint ignore:start */

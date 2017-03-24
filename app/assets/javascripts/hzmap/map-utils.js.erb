@@ -41,5 +41,22 @@ HZApp.MapUtils = (function(){
         new google.maps.LatLng(NELat, NELng)
       );
     },
+
+    // handling for showing the street view coverage layer
+    streetViewLayer: {},
+    toggleStreetViewLayer: function(){
+      if (HZApp.MapUtils.streetViewLayer.getMap()){
+        HZApp.MapUtils.streetViewLayer.setMap(null);
+      } else {
+        HZApp.MapUtils.streetViewLayer.setMap(HZApp.map);
+      }
+    },
+    initializeStreetViewLayer: function(){
+      HZApp.MapUtils.streetViewLayer = new google.maps.StreetViewCoverageLayer();
+      var streetViewButton = document.getElementsByClassName("gm-svpc");
+      for (var i = streetViewButton.length - 1; i >= 0; i--) {
+        streetViewButton[i].addEventListener('click', HZApp.MapUtils.toggleStreetViewLayer);
+      }
+    }
   };
 })();

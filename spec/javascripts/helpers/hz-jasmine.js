@@ -28,9 +28,12 @@ var HZSpecHelper = (function(){
         var mapBodyDiv = document.createElement('div');
         $(mapBodyDiv).addClass('map-body mock-page');
 
+        //add a fake street view class button
+        $(mapBodyDiv).append('<div class="gm-svpc"></div>');
+
         //add header and search
         $('body').append('<div id="header" class=" mock-page hidden"></div>');
-        $('#header').append('<div id="search-field-small" class="mock-page hidden"></div>')
+        $('#header').append('<div id="search-field-small" class="mock-page hidden"></div>');
 
         //add legend
         $('body').append('<div id="legend" class="mock-page"><ul>' +
@@ -165,9 +168,17 @@ var HZSpecHelper = (function(){
             f: "px"
           }
         },
+        StreetViewCoverageLayer: function(){
+          return {
+            svMap: null,
+            getMap: function(){ return this.svMap; },
+            setMap: function(map){ this.svMap = map; }
+          }
+        },
         StyledMapType: function(){},
         event: {
           addListener: function () {},
+          addListenerOnce: function () {},
           trigger: function() {}
         },
         places: {
