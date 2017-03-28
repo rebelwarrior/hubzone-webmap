@@ -125,4 +125,21 @@ describe ('Testing map operations', function() {
     HZApp.MapUtils.toggleStreetViewLayer();
     expect(HZApp.MapUtils.streetViewLayer.getMap()).toEqual(null);
   });
+
+  describe("triggering streetview layer behaviour", function(){
+    beforeEach(function(){
+      HZSpecHelper.mockPage.build();
+    });
+
+    afterEach(function(){
+      HZSpecHelper.mockPage.destroy();
+    });
+
+    it("should trigger toggling the streetview layer on the peg man click", function(){
+      spyOn(HZApp.MapUtils, 'toggleStreetViewLayer');
+      HZApp.MapUtils.initializeStreetViewLayer();
+      $('#my-man-peg-man').trigger('click');
+      expect(HZApp.MapUtils.toggleStreetViewLayer.calls.count()).toEqual(1);
+    });
+  });
 });

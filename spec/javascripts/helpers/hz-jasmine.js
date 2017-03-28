@@ -29,7 +29,7 @@ var HZSpecHelper = (function(){
         $(mapBodyDiv).addClass('map-body mock-page');
 
         //add a fake street view class button
-        $(mapBodyDiv).append('<div class="gm-svpc"></div>');
+        $('body').append('<div id="my-man-peg-man" class="gm-svpc"></div>')
 
         //add header and search
         $('body').append('<div id="header" class=" mock-page hidden"></div>');
