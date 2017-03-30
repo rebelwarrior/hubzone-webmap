@@ -155,6 +155,8 @@ th.additional-details-title {
   background-color: $white;
   color: $gray-dark;
 }
+
+/*sidebar print button*/
 i.fa.fa-print {
   font-size: 2.5rem;
   color: $gray-dark;
@@ -183,6 +185,38 @@ button#map-report {
   padding-top: 0.5rem;
   color: $gray-dark;
 }
+/* /sidebar print button*/
+
+/*sidebar share button*/
+i.fa.fa-share {
+  font-size: 2.5rem;
+  color: $gray-dark;
+  padding: .5rem 2rem 0 2rem;
+}
+#map-share {
+  cursor: pointer;
+  display: inline;
+}
+i.fa-share {
+  font-size: 2.5rem;
+  color: $gray-dark;
+  padding: 0;
+}
+
+button#map-share {
+  background: none;
+  margin: 1.7rem 0.5rem 1.5rem 1.5rem;
+  padding: 0rem;
+}
+.share-map {
+  font-size: 1.5rem;
+  font-weight: normal;
+  padding-top: 0.5rem;
+  color: $gray-dark;
+}
+/* /sidebar share button*/
+
+
 .sidebar-footer {
   width: 34rem;
   position: fixed;

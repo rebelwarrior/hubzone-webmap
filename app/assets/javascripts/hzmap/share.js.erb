@@ -1,0 +1,19 @@
+// reporting utility
+HZApp.Share = (function(){
+  //adds listeners
+  $(function() {
+    $(document).on('click','#map-share', HZApp.Share.shareMap);
+  });
+
+  return {
+    shareMap: function(event){
+      var query = HZApp.HZQuery.query;
+      var date = HZApp.MapUtils.parseDate(new Date());
+      var locale = document.documentElement.lang || 'en';
+      var url = "<%= MAP_CONFIG[:hubzone_map_host] %>/<%= search_path %>?search=" + (query.q || '') +
+                "&latlng=" + (query.latlng || '') +
+                "&query_date=" + date + "&locale=" + locale;
+      console.log(url);
+    }
+  };
+})();
