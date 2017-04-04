@@ -215,14 +215,15 @@ button#map-report {
   #sidebar {
     width: 100%;
     height: auto;
+    margin-top: -16rem;
     top: 100%;
-    background-color: transparent;
   }
   #sidebar-content.zero-results {
-    margin-top: 0;
-    position: absolute;
+    position: fixed;
+    background-color: $white;
     bottom: 0px;
   }
+
   #sidebar-content {
     margin-top: -100px;
   }
@@ -236,6 +237,9 @@ button#map-report {
     padding: 0.5rem;
     min-height: auto;
   }
+  .sidebar-card {
+    width: 95%;
+  }
   .sidebar-qualifications {
     width: 100%;
     border: none;
@@ -246,8 +250,12 @@ button#map-report {
     width: 100%;
     padding-left: 3.3rem;
   }
-  .sidebar-card .fa.fa-map-marker {
-    font-size: 3.5rem;
+  .sidebar-qualifications thead th {
+    font-size: 1.5rem;
+    padding: 0.5rem 1.5rem;
+  }
+  #hubzone-qualifications:focus {
+    outline: none;
   }
   .sidebar-qualifications thead th {
     padding: 0.5rem 1.5rem 0.5rem 2rem;
