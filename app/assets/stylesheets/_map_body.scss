@@ -6,12 +6,12 @@
 }
 @media only screen and (max-width: 950px)  {
   .map-body {
-    height: calc(100% - 40px);
+    height: 100%;
   }
 }
 @media only screen and (max-width: 480px) {
   .map-body {
-    height: calc(100% - 40px);
+    height: 100%;
   }
 }
 #map {

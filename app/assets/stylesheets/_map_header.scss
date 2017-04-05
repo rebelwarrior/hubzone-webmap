@@ -53,6 +53,11 @@
   #map-search button {
     background-size: 3.5rem;
   }
+  .usa-header {
+    position: fixed;
+    background-color: $white;
+    height: 4rem;
+  }
   .usa-navbar {
     border-bottom: none;
   }
