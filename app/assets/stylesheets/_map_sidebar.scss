@@ -222,20 +222,14 @@ button#map-report {
     position: fixed;
     background-color: $white;
     bottom: 0px;
+    position: fixed;
+    bottom: 0;
+    height: 15rem;
+    overflow: scroll;
   }
 
   #sidebar-content {
-    margin-top: -100px;
-  }
-  .sidebar-card.search-result {
-    min-height: 5.1rem;
-  }
-  .sidebar-card {
     width: 100%;
-    border-radius: 0;
-    margin: 0;
-    padding: 0.5rem;
-    min-height: auto;
   }
   .sidebar-card {
     width: 95%;
