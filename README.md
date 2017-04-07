@@ -35,6 +35,17 @@ Requirements:
     * Configure:
       * `echo 'export PGSQL_HOME=/usr/pgsql-9.5' >> ~/.bashrc`
       * `echo 'export PATH=${PATH}:${PGSQL_HOME}/bin' >> ~/.bashrc`
+* Geoserver 2.11 (OSX install)
+  * Uninstall Geoserver 2.10 by deleting or renaming Geoserver.app or deleting the binary
+  * Download Geoserver 2.11 and install
+<!--   * [Enable CORS following Geoserver Instructions](http://docs.geoserver.org/latest/en/user/production/container.html#enable-cors) -->
+  * [Install vector Tiles Extension](http://docs.geoserver.org/latest/en/user/extensions/vectortiles/install.html)
+    * [http://sourceforge.net/projects/geoserver/files/GeoServer/2.11.0/extensions/geoserver-2.11.0-vectortiles-plugin.zip](http://sourceforge.net/projects/geoserver/files/GeoServer/2.11.0/extensions/geoserver-2.11.0-vectortiles-plugin.zip)
+    * Extract archive and copy contents to `WEB-INF/lib` directory
+    * Add the line `<string>application/x-protobuf;type=mapbox-vector</string>` to the nodes `<defaultVectorCacheFormats>`, `<defaultCoverageCacheFormats>` and `<defaultOtherCacheFormats>` in `GEOSERVER/data_dir/gwc-gs.xml` to enable vector tiles by default
+    * Restart Geoserver if it was running
+    * Run the  `hubzone-geoserver-config` scripts:
+
 
 After cloning the repo, checkout out the `develop` branch and set up your environment:
 ```
