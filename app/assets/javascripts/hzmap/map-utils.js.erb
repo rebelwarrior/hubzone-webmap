@@ -112,6 +112,24 @@ HZApp.MapUtils = (function(){
       HZApp.SidebarUtils.sidebar.close();
       HZApp.SidebarUtils.sidebar.clear();
     },
+
+    // handling for showing the street view coverage layer
+    streetViewLayer: {},
+    toggleStreetViewLayer: function(){
+      if (HZApp.MapUtils.streetViewLayer.getMap()){
+        HZApp.MapUtils.streetViewLayer.setMap(null);
+      } else {
+        HZApp.MapUtils.streetViewLayer.setMap(HZApp.map);
+      }
+    },
+    initializeStreetViewLayer: function(){
+      HZApp.MapUtils.streetViewLayer = new google.maps.StreetViewCoverageLayer();
+      var streetViewButton = document.getElementsByClassName("gm-svpc");
+      for (var i = streetViewButton.length - 1; i >= 0; i--) {
+        streetViewButton[i].addEventListener('click', HZApp.MapUtils.toggleStreetViewLayer);
+      }
+    },
+
     /*
       This is a convenience method for helping to parse the base map style object at HZApp.Styles.hzBaseMapStyle
       to the format required by the Google Maps Static API (https://developers.google.com/maps/documentation/static-maps/styling, 2017-05-05)

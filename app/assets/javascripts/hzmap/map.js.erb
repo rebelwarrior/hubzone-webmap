@@ -40,6 +40,9 @@ function initMap() {
   //add listener on the map for clicks
   HZApp.WMTSUtils.addClickListeners(HZApp.map);
 
+  // add listener for peg man click
+  google.maps.event.addListenerOnce(HZApp.map, 'idle', HZApp.MapUtils.initializeStreetViewLayer);
+
   //add listener to the clear search
   HZApp.MapUtils.catchClearSearch('button.clear-search');
 
