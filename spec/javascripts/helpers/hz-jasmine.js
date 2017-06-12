@@ -229,7 +229,13 @@ var HZSpecHelper = (function(){
             f: "px"
           }
         },
-        StreetViewCoverageLayer: function(){},
+        StreetViewCoverageLayer: function(){
+          return {
+            svMap: null,
+            getMap: function(){ return this.svMap; },
+            setMap: function(map){ this.svMap = map; }
+          }
+        },
         StyledMapType: function(){},
         event: {
           addListener: function () {},
