@@ -2,6 +2,9 @@
 /* exported initMap */
 function initMap() {
 
+  // start the navigo router
+  HZApp.Router.startRouter();
+
   HZApp.map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 39.8282, lng: -98.5795},
     zoom: 5,

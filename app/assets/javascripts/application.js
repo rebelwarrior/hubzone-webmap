@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require navigo
 //= require uswds
 //= require HZ
 //= require i18n/translations

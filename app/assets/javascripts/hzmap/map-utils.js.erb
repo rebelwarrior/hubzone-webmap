@@ -1,6 +1,10 @@
 HZApp.MapUtils = (function(){
 
   return {
+    submitSearch: function(search){
+      HZApp.GA.trackSubmit('search', '#search-field-small');
+      HZApp.Router.router.navigate('?search=' + search, false);
+    },
     // turn latlng object into url
     catchMapClick: function(clickEvent){
       var clicklng = clickEvent.latLng.lng();
@@ -13,6 +17,7 @@ HZApp.MapUtils = (function(){
       $.ajax({
         url: url
       });
+      HZApp.Router.router.navigate('?latlng='+ clicklat + ',' + clicklng, false);
       return url;
     },
     //helper to parse a javascript date because, why?
