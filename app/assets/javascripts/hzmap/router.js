@@ -5,27 +5,40 @@ HZApp.Router = (function(){
     startRouter: function(){
       HZApp.Router.router = new Navigo(null);
       HZApp.Router.router.on({
-        '*': HZApp.Router.handleRouter
+        '/': HZApp.Router.handleRouter,
       });
+
+      HZApp.Router.router.notFound(HZApp.Router.nullHandler);
 
       HZApp.Router.router.resolve();
     },
+
+    nullHandler: function(params, query){
+      console_log('nullHandler')
+    },
+
     handleRouter: function(params, query){
       console.log('Router: ');
-      var latlng_q = HZApp.Router.parseQueryByName(query, 'latlng');
-      var search_q = HZApp.Router.parseQueryByName(query, 'search');
-      if (latlng_q){
-        console.log('latlng query: ', latlng_q);
-      } else if (search_q) {
-        var input_field = document.getElementById('search-field-small');
-        input_field.value = search_q.search;
-        document.getElementById('hubzone-search-form').submit();
-
-        submit_search.dispatchEvent(new Event('click'));
-      } else {
-        console.log('no valid search parameters detected!');
+      if (params !== ""){
+        var latlng_q = HZApp.Router.parseQueryByName(params, 'latlng');
+        var search_q = HZApp.Router.parseQueryByName(params, 'search');
+        if (latlng_q){
+          console.log('latlng query: ', latlng_q);
+        } else if (search_q) {
+          HZApp.Router.submitSearch(search_q.search);
+        } else {
+          console.log('no valid search parameters detected!');
+        }
       }
     },
+
+    // submit the hubzone form search
+    submitSearch: function(search){
+      var input_field = document.getElementById('search-field-small');
+      input_field.value = search;
+      document.getElementById('hubzone-search-form').submit();
+    },
+
     // return a new object for a single query parameter
     parseQueryByName: function(query, name){
       var query_split = query.split('?');

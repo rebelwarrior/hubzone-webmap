@@ -3,7 +3,10 @@ HZApp.MapUtils = (function(){
   return {
     submitSearch: function(search){
       HZApp.GA.trackSubmit('search', '#search-field-small');
-      HZApp.Router.router.navigate('?search=' + search, true);
+      console.log('here');
+      HZApp.Router.router.pause();
+      HZApp.Router.router.navigate('?search=' + search, false);
+      HZApp.Router.router.resume();
     },
     // turn latlng object into url
     catchMapClick: function(clickEvent){
