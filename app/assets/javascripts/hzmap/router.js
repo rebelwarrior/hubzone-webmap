@@ -40,6 +40,7 @@ HZApp.Router = (function(){
     },
 
     // return a new object for a single query parameter
+    // TODO: check Navigo, I think it might have built in methods for this.
     parseQueryByName: function(query, name){
       var query_split = query.split('?');
       for (var i = query_split.length - 1; i >= 0; i--) {
