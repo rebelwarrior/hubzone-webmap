@@ -3,26 +3,30 @@ HZApp.MapUtils = (function(){
   return {
     submitSearch: function(search){
       HZApp.GA.trackSubmit('search', '#search-field-small');
-      console.log('here');
-      HZApp.Router.router.pause();
       HZApp.Router.router.navigate('?search=' + search, false);
-      HZApp.Router.router.resume();
     },
     // turn latlng object into url
     catchMapClick: function(clickEvent){
       var clicklng = clickEvent.latLng.lng();
       var clicklat = clickEvent.latLng.lat();
-      var date = HZApp.MapUtils.parseDate(new Date());
-      var locale = document.documentElement.lang || 'en';
       // Log the click
       HZApp.GA.track( 'map', 'click', clicklat + ',' + clicklng );
-      var url = "<%= search_path %>?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date + '&locale=' + locale;
+      HZApp.MapUtils.mapSearchAjax("latlng=" + clicklat + ',' + clicklng);
+    },
+
+    // map search AJAX call
+    mapSearchAjax: function(paramString){
+      var date = HZApp.MapUtils.parseDate(new Date());
+      var locale = document.documentElement.lang || 'en';
+      var url = "<%= search_path %>?" + paramString + '&query_date=' + date + '&locale=' + locale;
+      console.log(url);
       $.ajax({
         url: url
       });
-      HZApp.Router.router.navigate('?latlng='+ clicklat + ',' + clicklng, false);
+      HZApp.Router.router.navigate("?" + paramString, false);
       return url;
     },
+
     //helper to parse a javascript date because, why?
     parseDate: function(date){
       var mm = date.getMonth() + 1;

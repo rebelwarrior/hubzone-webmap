@@ -5,7 +5,7 @@ HZApp.Router = (function(){
     startRouter: function(){
       HZApp.Router.router = new Navigo(null);
       HZApp.Router.router.on({
-        '/': HZApp.Router.handleRouter,
+        "*": HZApp.Router.handleRouter
       });
 
       HZApp.Router.router.notFound(HZApp.Router.nullHandler);
@@ -19,13 +19,13 @@ HZApp.Router = (function(){
 
     handleRouter: function(params, query){
       console.log('Router: ');
-      if (params !== ""){
-        var latlng_q = HZApp.Router.parseQueryByName(params, 'latlng');
-        var search_q = HZApp.Router.parseQueryByName(params, 'search');
+      if (query !== ""){
+        var latlng_q = HZApp.Router.parseQueryByName(query, 'latlng');
+        var search_q = HZApp.Router.parseQueryByName(query, 'search');
         if (latlng_q){
           console.log('latlng query: ', latlng_q);
         } else if (search_q) {
-          HZApp.Router.submitSearch(search_q.search);
+          HZApp.Router.submitMapFormSearch(search_q.search);
         } else {
           console.log('no valid search parameters detected!');
         }
@@ -33,10 +33,10 @@ HZApp.Router = (function(){
     },
 
     // submit the hubzone form search
-    submitSearch: function(search){
-      var input_field = document.getElementById('search-field-small');
-      input_field.value = search;
-      document.getElementById('hubzone-search-form').submit();
+    submitMapFormSearch: function(search){
+      HZApp.GA.trackSubmit('search', '#search-field-small');
+      document.getElementById('search-field-small').value = search;
+      HZApp.MapUtils.mapSearchAjax("search=" + search);
     },
 
     // return a new object for a single query parameter
