@@ -19,6 +19,9 @@ HZApp.Router = (function(){
       } else if (search_q) {
         var input_field = document.getElementById('search-field-small');
         input_field.value = search_q.search;
+        document.getElementById('hubzone-search-form').submit();
+
+        submit_search.dispatchEvent(new Event('click'));
       } else {
         console.log('no valid search parameters detected!');
       }
