@@ -3,7 +3,7 @@ HZApp.MapUtils = (function(){
   return {
     submitSearch: function(search){
       HZApp.GA.trackSubmit('search', '#search-field-small');
-      HZApp.Router.router.navigate('?search=' + search, false);
+      HZApp.Router.navigateWithParams('?search=' + search);
     },
     // turn latlng object into url
     catchMapClick: function(clickEvent){
@@ -21,9 +21,10 @@ HZApp.MapUtils = (function(){
       var url = "<%= search_path %>?" + paramString + '&query_date=' + date + '&locale=' + locale;
       console.log(url);
       $.ajax({
-        url: url
+        url: url,
+        }
       });
-      HZApp.Router.router.navigate("?" + paramString, false);
+      HZApp.Router.navigateWithParams("?" + paramString);
       return url;
     },
 

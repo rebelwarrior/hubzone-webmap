@@ -2,8 +2,11 @@
 HZApp.Router = (function(){
   return {
     router: {},
+
     startRouter: function(){
       HZApp.Router.router = new Navigo(null);
+
+      // how to handle navigation events
       HZApp.Router.router.on({
         "*": HZApp.Router.handleRouter
       });
@@ -13,6 +16,15 @@ HZApp.Router = (function(){
       HZApp.Router.router.resolve();
     },
 
+    // how to handle adding state to the url
+    navigateWithParams: function(params){
+      var mapCenter = HZApp.map.getCenter();
+      params += "&center=" + mapCenter.lat() + ',' + mapCenter.lng();
+      var mapZoom = HZApp.map.getZoom();
+      params += "&z=" + mapZoom;
+      HZApp.Router.router.navigate(params, false);
+    },
+
     nullHandler: function(params, query){
       console_log('nullHandler')
     },
@@ -20,16 +32,24 @@ HZApp.Router = (function(){
     handleRouter: function(params, query){
       console.log('Router: ');
       if (query !== ""){
+        console.log('i have parameters dont geolocate');
         var latlng_q = HZApp.Router.parseQueryByName(query, 'latlng');
         var search_q = HZApp.Router.parseQueryByName(query, 'search');
         if (latlng_q){
           console.log('latlng query: ', latlng_q);
+          HZApp.Router.submitMapClickSearch(latlng_q.latlng);
         } else if (search_q) {
           HZApp.Router.submitMapFormSearch(search_q.search);
         } else {
           console.log('no valid search parameters detected!');
         }
       }
+    },
+
+    // submit the hubzone latlng search
+    submitMapClickSearch: function(latlng){
+      HZApp.GA.track( 'map', 'click', latlng );
+      HZApp.MapUtils.mapSearchAjax("latlng=" + latlng);
     },
 
     // submit the hubzone form search
