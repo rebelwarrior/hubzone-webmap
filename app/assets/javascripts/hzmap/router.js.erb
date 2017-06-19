@@ -22,7 +22,9 @@ HZApp.Router = (function(){
       params += "&center=" + mapCenter.lat() + ',' + mapCenter.lng();
       var mapZoom = HZApp.map.getZoom();
       params += "&z=" + mapZoom;
-      HZApp.Router.router.navigate(params, false);
+      HZApp.Router.router.pause();
+      HZApp.Router.router.navigate(params, true);
+      HZApp.Router.router.resume();
     },
 
     nullHandler: function(params, query){
@@ -30,7 +32,7 @@ HZApp.Router = (function(){
     },
 
     handleRouter: function(params, query){
-      console.log('Router: ');
+      console.log('Router: ', params, query);
       if (query !== ""){
         console.log('i have parameters dont geolocate');
         var latlng_q = HZApp.Router.parseQueryByName(query, 'latlng');
