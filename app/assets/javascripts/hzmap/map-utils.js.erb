@@ -3,8 +3,14 @@ HZApp.MapUtils = (function(){
   return {
     submitSearch: function(search){
       HZApp.GA.trackSubmit('search', '#search-field-small');
-      HZApp.Router.navigateWithParams('?search=' + search);
+      HZApp.HZQuery.query.q = search;
     },
+
+    acceptSearchResponse: function(response){
+      // HZApp.Router.navigateWithParams('?search=' + search);
+      console.log(response);
+    },
+
     // turn latlng object into url
     catchMapClick: function(clickEvent){
       var clicklng = clickEvent.latLng.lng();
@@ -23,7 +29,7 @@ HZApp.MapUtils = (function(){
       $.ajax({
         url: url,
       });
-      HZApp.Router.navigateWithParams("?" + paramString);
+      // HZApp.Router.navigateWithParams("?" + paramString);
       return url;
     },
 

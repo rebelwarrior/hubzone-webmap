@@ -11,7 +11,7 @@ HZApp.HZQuery = {
     this.response = response;
     this.response.geocodeLocation = null;
     this.query.latlng = null;
-    this.query.q = null;
+    // this.query.q = null;
 
     // handle bad responses
     this.handleBadResponses(response.status);
@@ -41,10 +41,10 @@ HZApp.HZQuery = {
       });
 
       if (response.place_id){
-        this.query.q = response.formatted_address;
+        // this.query.q = response.formatted_address;
         this.query.latlng = null;
       } else {
-        this.query.q = null;
+        // this.query.q = null;
         this.query.latlng = [response.geometry.location.lat, response.geometry.location.lng ].join(',');
         this.addCoordsToSearchBar(response.geometry.location);
       }

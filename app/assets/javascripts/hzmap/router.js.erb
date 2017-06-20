@@ -18,6 +18,7 @@ HZApp.Router = (function(){
 
     // how to handle adding state to the url
     navigateWithParams: function(params){
+      console.log('navigatewithParams: ', params);
       var mapCenter = HZApp.map.getCenter();
       params += "&center=" + mapCenter.lat() + ',' + mapCenter.lng();
       var mapZoom = HZApp.map.getZoom();
@@ -35,13 +36,13 @@ HZApp.Router = (function(){
       console.log('Router: ', params, query);
       if (query !== ""){
         console.log('i have parameters dont geolocate');
-        var latlng_q = HZApp.Router.parseQueryByName(query, 'latlng');
-        var search_q = HZApp.Router.parseQueryByName(query, 'search');
-        if (latlng_q){
-          console.log('latlng query: ', latlng_q);
-          HZApp.Router.submitMapClickSearch(latlng_q.latlng);
-        } else if (search_q) {
-          HZApp.Router.submitMapFormSearch(search_q.search);
+        var parsed_query = HZApp.Router.parseQuery(query);
+        if (parsed_query.latlng){
+          console.log('latlng query: ', parsed_query.latlng);
+          HZApp.Router.submitMapClickSearch(parsed_query);
+        } else if (parsed_query.search) {
+          console.log('search query: ', parsed_query.search);
+          HZApp.Router.submitMapFormSearch(parsed_query);
         } else {
           console.log('no valid search parameters detected!');
         }
@@ -61,16 +62,21 @@ HZApp.Router = (function(){
       HZApp.MapUtils.mapSearchAjax("search=" + search);
     },
 
+    parseQuery: function(query){
+      var parsed_query = {};
+      ['latlng', 'search', 'center', 'z'].map(function(param){
+        parsed_query[param] = HZApp.Router.parseQueryByName(query, param);
+      });
+      return parsed_query;
+    },
+
     // return a new object for a single query parameter
-    // TODO: check Navigo, I think it might have built in methods for this.
     parseQueryByName: function(query, name){
-      var query_split = query.split('?');
+      var query_split = query.split('&');
       for (var i = query_split.length - 1; i >= 0; i--) {
         var sub_split = query_split[i].split('=');
         if (sub_split[0] === name){
-          var query_obj = {};
-          query_obj[sub_split[0]] = decodeURI(sub_split[1]);
-          return query_obj;
+          return decodeURI(sub_split[1]);
         }
       }
     },
