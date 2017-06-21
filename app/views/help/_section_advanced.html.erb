@@ -13,8 +13,8 @@
 <p><%= t('help.advanced.my_location.body_html') %></p>
 <h4><%= t('help.advanced.my_location.section_one_title') %></h4>
 <p><%= t('help.advanced.my_location.section_one_body') %></p>
-<%= image_tag "help/geolocation-prompt.png", alt: "geolocation access prompt", style: "max-width: 35rem; padding-right: 1rem;" %>
+<%= image_tag "help/geolocation-prompt.png", alt: t('help.advanced.my_location.section_one_image_alt') , style: "max-width: 35rem; padding-right: 1rem;" %>
 <ul><li><%= t('help.advanced.my_location.section_one_list') %></li></ul>
-<p>If you previously selected “Don’t Allow / Block”. The map will not be able to show your current location by default. You can change this by following these instructions. {Link to google help page on enabling browser https://support.google.com/maps/answer/2839911}</p>
-<h4>Errors in finding your location</h4>
-<p>Occasionally, the HUBZone map is unable to determine your location even when you granted permission. In this case, try reloading the page. If the problem persists, try entering your address in and searching instead.</p>
+<p><%= t('help.advanced.my_location.section_one_body_two') %></p>
+<h4><%= t('help.advanced.my_location.section_two_title') %></h4>
+<p><%= t('help.advanced.my_location.section_two_body') %></p>

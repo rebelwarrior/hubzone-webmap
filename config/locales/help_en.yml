@@ -73,8 +73,13 @@ en:
         title_html: "My Location"
         body_html: "<p>You can allow the Map to use your current location. Allowing your location centers the Map on your current location and shows a black dot on the Map. Then, if you move the Map you can use the arrow icon(left) to reset the Map to your location.</p>"
         section_one_title: "Giving permission to use your location"
-        section_one_body: "When you first visit the HUBZone Map, your browser will request permission “to use your current location”. Once enabled you will be able to determine if your current location is in a Qualified HUBZone."
-        section_one_list: "Selecting \"Allow\" will enable the location feature."
+        section_one_body: "When you first visit the HUBZone Map, your browser will request permission to use your current location. Once enabled you will be able to determine if your current location is in a Qualified HUBZone."
+        section_one_image_alt: "geolocation access prompt"
+        section_one_list: "Selecting \"Allow / Allow Location Access\" will enable the location feature."
+        section_one_body_two: "If you previously selected “Don’t Allow / Block”. The map will not be able to navigate and show your current location. You will need to modify your settings in your web browser."
+        section_two_title: "Errors in finding your location"
+        section_two_body: "Occasionally, the HUBZone map is unable to determine your location even when you granted permission. In this case, try reloading the page. If the problem persists, try entering your address in and searching instead."
+
     faq:
       title: "Frequently Asked Questions"
       question_one:
