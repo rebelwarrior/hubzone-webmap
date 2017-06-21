@@ -33,7 +33,7 @@ dev:
     hubzone_program: "Programa HUBZone"
     hubzone_program_aria_label: "Programa hubzone"
     accessible_version: "Versión accesible"
-    help: "Ayuda"
+    help: "Aprende más"
   map:
     aria_label: "Está mostrando un mapa a pantalla completa"
     enter_address: "Ingresa la direccion"
@@ -107,4 +107,4 @@ dev:
     generating: "Generar informe..."
     created: "Informe creado"
   error-popup:
-    geolocation: 'No se puede determinar su ubicación. Para más información, consulte '
+    geolocation: 'El Mapa SBA HUBZone no tiene permiso para usar su ubicación actual, o tiene problemas para encontrar su ubicación. '
