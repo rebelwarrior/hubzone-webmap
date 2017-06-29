@@ -59,15 +59,13 @@
 
 <div class="sidebar-card hubzone-status <%= hubzone_status_style %> <%= visibility %>">
   <table id="hubzone-qualifications" class="sidebar-qualifications clearable">
-    <thead>
-      <th class="<%= hubzone_status_style %>" scope="row">
-        <div class="hubzone-status-indicator ">
-          <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
-        </div>
-        <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %></div>
-        <div class="hubzone-until-date"><%= until_date %></div>
-      </th>
-    </thead>
+    <th class="<%= hubzone_status_style %>" scope="row">
+      <div class="hubzone-status-indicator ">
+        <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
+      </div>
+      <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %></div>
+      <div class="hubzone-until-date"><%= until_date %></div>
+    </th>
   </table>
 </div>
 
