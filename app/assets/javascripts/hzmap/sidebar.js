@@ -1,16 +1,6 @@
 //Sidebar utils
 HZApp.SidebarUtils = (function(){
 
-  // forEach polyfill for IE
-  if (window.NodeList && !NodeList.prototype.forEach) {
-    NodeList.prototype.forEach = function (callback, argument) {
-      argument = argument || window;
-      for (var i = 0; i < this.length; i++) {
-          callback.call(argument, this[i], i, this);
-      }
-    };
-  }
-
   // extend jquery with our sidebar function
   $.fn.sidebar = function() {
     var $sidebar = this;
@@ -107,9 +97,9 @@ HZApp.SidebarUtils = (function(){
       // update the accordion statuse
       var detailsRows = document.querySelectorAll('.designation-details-row');
 
-      detailsRows.forEach(function(detail){
-        detail.hidden = !visibleState;
-      });
+      for (var i = detailsRows.length - 1; i >= 0; i--) {
+        detailsRows[i].hidden = !visibleState;
+      }
 
       // update the button link
       document.querySelector('span.additional-details-expand.show').hidden = (action === 'show' ? true : false);
