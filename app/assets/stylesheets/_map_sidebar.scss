@@ -38,6 +38,10 @@
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
   border-radius: 3px;
   display: table;
+  clear: both;
+}
+.sidebar-expand {
+  display: none;
 }
 .hubzone-sidebar-cell {
   display: table-cell;
@@ -269,6 +273,24 @@ button#map-report {
     display: block;
     width: calc(100% - 2rem);
     margin: 0.75rem 1rem;
+  }
+  .sidebar-expand {
+    display: flex;
+    justify-content: flex-end;
+    width: calc(100% - 1.5rem);
+    padding-top: 1rem;
+    padding-bottom: 0.2rem;
+  }
+  .sidebar-expand h5 {
+    margin: 0 .5rem 0 0;
+  }
+  .sidebar-expand i {
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+  }
+  .sidebar-expand h5,
+  .sidebar-expand i {
+    color: $gray-dark;
   }
   .hubzone-sidebar-cell{
     padding: 0.5rem 0 0.5rem 0;

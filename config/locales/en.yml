@@ -30,6 +30,7 @@ en:
     formats:
       full: " %b %d, %Y"
   menu:
+    title: "Menu"
     hubzone_program: "HUBZone Program"
     hubzone_program_aria_label: "hubzone program"
     accessible_version: "Accessible Version"
@@ -48,6 +49,7 @@ en:
       title: "Designations"
       show: "Show Details"
       hide: "Hide Details"
+    expand: "Expand"
   api:
     success: "Success"
     error:
