@@ -1,6 +1,7 @@
 HZApp.MapUtils = (function(){
 
   return {
+
     // catch a map latlng event into a latlng hash
     catchMapClick: function(clickEvent){
       var clicklng = clickEvent.latLng.lng();
@@ -15,9 +16,11 @@ HZApp.MapUtils = (function(){
       HZApp.GA.track( 'map', 'click', latlng_s );
       var url = "<%= search_path %>?latlng=" + latlng_s + this.includeDateAndLocale();
       this.sendAjax(url, callback);
-      HZApp.Router.clearHash('q');
-      HZApp.Router.setSingleHash('latlng', latlng_s);
-      HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
+      // if (!callback){
+      //   HZApp.Router.clearHash('q');
+      //   HZApp.Router.setSingleHash('latlng', latlng_s);
+      //   HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
+      // }
       return url;
     },
 
@@ -130,6 +133,8 @@ HZApp.MapUtils = (function(){
 
     // map idle listener callback for updatig the map url route when the page is done moving
     updateMapLocation: function(){
+      console.log('hi im idle')
+      HZApp.Router.silentHashChange = true;
       HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), true);
     },
 

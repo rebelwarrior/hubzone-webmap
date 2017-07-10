@@ -20,7 +20,7 @@ HZApp.Router = (function(){
 
     // this is the main and only point which is allowed to set the hash
     setHash: function(hash, silent){
-      HZApp.Router.silentHashChange = silent || true;
+      // HZApp.Router.silentHashChange = silent || true;
       if (hash !== location.hash){
         location.hash = hash;
       }
@@ -35,9 +35,11 @@ HZApp.Router = (function(){
     // helper to get just the google map center and zoom and update the hash from that
     // but set them together to only trigger one event
     setCenterAndZoomHash: function(mapCenter, zoom, silent){
+      console.log(HZApp.Router.silentHashChange)
       var c_hash = this.updateHashValue('center', mapCenter.lat().toFixed(6) + ',' + mapCenter.lng().toFixed(6), location.hash);
       var c_z_hash = this.updateHashValue('zoom', zoom, c_hash);
       this.setHash(c_z_hash, silent);
+      return;
     },
 
     // returns a new hash string that that can be passed to location.hash
@@ -113,14 +115,17 @@ HZApp.Router = (function(){
         HZApp.Router.silentHashChange = true;
         HZApp.Router.updateStateFromHash(location.hash);
       }
+      //add listener for map idle to update router hash center and zoom
+      google.maps.event.addListener(HZApp.map, 'idle', HZApp.MapUtils.updateMapLocation);
     },
 
     // catch and flow control hash changes
     catchHashChange: function(){
       if (HZApp.Router.silentHashChange) {
+        console.log('was a silent hash change');
         HZApp.Router.silentHashChange = false;
       } else {
-        // console.log('update app on back behavior');
+        console.log('update app on back behavior');
         // HZApp.Router.updateStateFromHash(location.hash);
       }
     },
@@ -163,6 +168,7 @@ HZApp.Router = (function(){
       },
       q: function(q){
         var search = HZApp.Router.unpackValidSearch(q) || null;
+        console.log('herhe')
         if (search){
           HZApp.GA.trackSubmit('search', '#search-field-small');
           document.getElementById('search-field-small').value = search;
