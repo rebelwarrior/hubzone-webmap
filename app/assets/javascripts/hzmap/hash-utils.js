@@ -8,7 +8,7 @@ HZApp.HashUtils = (function(){
 
     // returns true if the hash ONLY contains center and zoom
     hashNoSearch: function(currentHash){
-      return (currentHash.center && currentHash.zoom && !currentHash.latlng && !currentHash.q);
+      return (currentHash.center && currentHash.zoom && (currentHash.latlng === undefined && currentHash.q === undefined));
     },
 
     // returns a new hash string that that can be passed to location.hash
