@@ -61,6 +61,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.1.0)
+      capybara (~> 2.0, >= 2.0.2)
+      json
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
     chromedriver-helper (1.1.0)
@@ -277,6 +280,7 @@ DEPENDENCIES
   brakeman
   byebug
   capybara
+  capybara-webkit
   chromedriver-helper
   coffee-rails (~> 4.2)
   dotenv-rails
@@ -306,4 +310,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.13.6
+   1.15.3

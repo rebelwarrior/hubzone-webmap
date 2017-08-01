@@ -32,6 +32,7 @@ group :development, :test do
   gem "brakeman", require: false # code analysis  (http://brakemanscanner.org)
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'capybara' # allow interaction with DOM in tests
+  gem 'capybara-webkit'
   gem 'chromedriver-helper'
   # gem 'chunky_png' # read png images
   gem 'jasmine-rails' # JavaScript testing

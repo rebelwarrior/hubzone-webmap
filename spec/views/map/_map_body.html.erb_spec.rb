@@ -6,14 +6,16 @@ RSpec.describe "map/_map_body.html.erb" do
       context "checking the map body" do
         before do
           I18n.locale = locale
-          render partial: "map/map_body", locals: {locale: locale}
+          render partial: "map/map_body" #, locals: {locale: locale}
         end
         it "should have aria labels" do
-          expect(rendered).to match /aria-label/
+          expect(rendered).to match(/aria-label/)
         end
         it "should have a tab index" do
-          # expect(rendered).to match /tabindex/
-          rendered.find_field('#search-field-small')['autofocus'].should be_present
+          expect(rendered).to match(/tabindex/)
+        end
+        it "should have a autofocus" do
+          expect(rendered).to match(/autofocus/)
         end
       end
     end
