@@ -244,7 +244,9 @@ HZApp.Router = (function(){
           lat: function() { return mapLocation.center.lat; },
           lng: function() { return mapLocation.center.lng; }
         };
-        HZApp.Router.replaceHash(HZApp.HashUtils.updateCenterAndZoomHash(center, mapLocation.zoom, ""));
+        hash = HZApp.HashUtils.updateCenterAndZoomHash(center, mapLocation.zoom, "");
+        history.pushState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "map");
+        // HZApp.Router.replaceHash(HZApp.HashUtils.updateCenterAndZoomHash(center, mapLocation.zoom, ""));
         return mapLocation;
       }
     },
