@@ -4,6 +4,8 @@ require 'rails_helper'
 RSpec.describe 'The Search', type: :feature, js: true do
   context 'before a search performed' do
     before do
+      # page.driver.browser.url_blacklist = ["https://fonts.gstatic.com", "https://maps.googleapis.com", "https://www.google-analytics.com"]
+      page.driver.browser.url_whitelist = ["127.0.0.1"]
       visit map_path
     end
     it "will have aria labels" do
