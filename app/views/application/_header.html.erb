@@ -11,24 +11,9 @@
   <!-- Gov banner END -->
   <div class="usa-navbar">
     <button class="usa-menu-btn usa-button-outline" role="button" aria-label="Menu button">Menu</button>
-    <div class="usa-logo" id="logo">
-      <em class="usa-logo-text">
-        <%= link_to( image_tag("sba-logo.png", id: "sba-logo", tabindex: 0, alt: "U.S. Small Business Administration logo"),
-                     'https://sba.gov',
-                     class: 'logo-link',
-                     title: 'SBA Home',
-                     'aria-label' => 'SBA Home',
-                     onclick: "HZApp.GA.openLink( 'https://sba.gov', 'map', 'logo-link' );" )
-        %>
-        <%= link_to( "<h1>#{t('hubzone_map')}</h1>".html_safe,
-                     map_path,
-                     tabindex: 0,
-                     class: 'title-link',
-                     title: 'Home',
-                     'aria-label' => 'hubzone map home',
-                     onclick: "HZApp.GA.openLink( '#{map_path}', 'map', 'title-link' );" )
-        %>
-      </em>
+    <div class="logo-stuff">
+      <img alt="certify.SBA.gov logo" src="https://ussba.github.io/certify-prototype/assets/img/certify-sba-gov-logo_on-dark.png" width="275px">
+      <div class="title">HUBZone Map</div>
     </div>
   </div>
   <nav role="navigation" class="usa-nav">
@@ -51,6 +36,9 @@
                          id: "hubzone-program-link",
                          'aria-label': t('menu.hubzone_program_aria_label'),
                          onclick: "HZApp.GA.openLink( 'https://www.sba.gov/contracting/government-contracting-programs/hubzone-program', 'map', 'program-link' );" ) %>
+          </li>
+          <li>
+            <a href="http://localhost:3000/login">Sign in</a>
           </li>
         </ul>
       </div>
