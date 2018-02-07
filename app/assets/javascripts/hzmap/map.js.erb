@@ -77,6 +77,24 @@ function initMap() {
   // build the sidebar
   HZApp.SidebarUtils.buildSidebar();
 
+  HZApp.map.data.addGeoJson(HZApp.Data.cal_fire);
+  HZApp.map.data.addGeoJson(HZApp.Data.oc);
+
+  HZApp.map.data.setStyle(function(feature){
+    if (feature.f['Name']){
+      return {
+        fillColor: 'red',
+        strokeWidth: 0.2
+      }
+    } else {
+      return {
+        fillOpacity: 0.0,
+        strokeWidth: 0.5
+      }
+    }
+  });
+
+
   //returns the map
   return HZApp.map;
 }

@@ -59,10 +59,30 @@ HZApp.WMTSUtils = (function(){
       bb.w = this.tile2Lng(x, zoom);
       bb.e = this.tile2Lng(x+1, zoom);
 
+
       var webMSW = this.toWebMercator(bb.w, bb.s);
       var webMNE = this.toWebMercator(bb.e, bb.n);
       return [webMSW[0], webMSW[1], webMNE[0], webMNE[1]].join(',');
     },
+
+
+    // The mapping between latitude, longitude and pixels is defined by the web
+    // mercator projection.
+    project: function(lat, lng) {
+      var siny = Math.sin(lat * Math.PI / 180);
+
+      // Truncating to 0.9999 effectively limits latitude to 89.189. This is
+      // about a third of a tile past the edge of the world tile.
+      siny = Math.min(Math.max(siny, -0.9999), 0.9999);
+
+      var project_x = this.tileSize * (0.5 + lng / 360);
+      var project_y = this.tileSize * (0.5 - Math.log((1 + siny) / (1 - siny)) / (4 * Math.PI));
+      return {x: project_x, y: project_y}
+      // return new google.maps.Point(
+      //   this.tileSize * (0.5 + lng / 360),
+      //   this.tileSize * (0.5 - Math.log((1 + siny) / (1 - siny)) / (4 * Math.PI)));
+    },
+
     toWebMercator: function(x_lon, y_lat){
       var semimajor_axis = 6378137.0;
       var east = x_lon * 0.017453292519943295;
@@ -96,6 +116,8 @@ HZApp.WMTSUtils = (function(){
       url += "&width=" + this.tileSize;
       url += "&height=" + this.tileSize;
       url += "&format=image/png";
+      HZApp.wmsRequest = HZApp.wmsRequest || [];
+      HZApp.wmsRequest.push(zoom);
       return url;
     },
     addClickListeners: function(overlay) {
