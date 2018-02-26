@@ -30,13 +30,19 @@ HZApp.SidebarUtils = (function(){
         $sidebar.removeClass('closed');
         $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
 
-        if ($('div.gm-bundled-control.gmnoprint[controlheight="55"]') && $('div.gm-bundled-control.gmnoprint[controlheight="66"]') && $('div.gm-bundled-control.gm-svpc') ) {
-          console.log("control exists");
-        } else {
-          console.log("no control exists yet");
-        }
+
+        // Track when the controls exist
+        // if ($('div.gm-bundled-control.gmnoprint[controlheight="55"]') && $('div.gm-bundled-control.gmnoprint[controlheight="66"]') && $('div.gm-bundled-control.gm-svpc') ) {
+        //   console.log("control exists");
+        // } else {
+        //   console.log("no control exists yet");
+        // }
+
+        // Try splitting the selectors out and be more specific.
         $('div.gmnoprint[controlheight="55"]').addClass('gm-sidebar-on');
         $('div.gm-svpc').addClass('gm-sidebar-on');
+
+
         $('#geolocation').addClass('geolocation-sidebar-on');
 
       } else {

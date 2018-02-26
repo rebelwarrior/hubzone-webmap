@@ -38,7 +38,6 @@ function initMap() {
   HZApp.map.setOptions({'mapTypeControl':false});
   google.maps.event.addListenerOnce(HZApp.map, 'idle', function() {
     HZApp.MapUtils.updateMapTypeNames();
-    window.onload = runSidebar();
   });
 
   //adds in the hz style into the basemap picker
@@ -77,13 +76,10 @@ function initMap() {
   //build the legend
   HZApp.Legend.buildLegend(HZApp.Legend.legend);
 
-  //wait for pageload, build the sidebar
-  function runSidebar () {
-    console.log('window.onload ran and runSidebar executed');
-    setTimeout(function () {
-      HZApp.SidebarUtils.buildSidebar();
-    }, 2000);
-  }
+  // build the sidebar
+  window.addEventListener("load", function(){
+    HZApp.SidebarUtils.buildSidebar();
+  });
 
   //returns the map
   return HZApp.map;
