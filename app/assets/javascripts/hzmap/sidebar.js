@@ -29,7 +29,14 @@ HZApp.SidebarUtils = (function(){
         $sidebar.removeClass('hidden');
         $sidebar.removeClass('closed');
         $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
-        $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').addClass('gm-sidebar-on');
+
+        if ($('div.gm-bundled-control.gmnoprint[controlheight="55"]') && $('div.gm-bundled-control.gmnoprint[controlheight="66"]') && $('div.gm-bundled-control.gm-svpc') ) {
+          console.log("control exists");
+        } else {
+          console.log("no control exists yet");
+        }
+        $('div.gmnoprint[controlheight="55"]').addClass('gm-sidebar-on');
+        $('div.gm-svpc').addClass('gm-sidebar-on');
         $('#geolocation').addClass('geolocation-sidebar-on');
 
       } else {
