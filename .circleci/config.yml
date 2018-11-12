@@ -80,6 +80,8 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
+      - run: echo 127.0.0.1 devhost | sudo tee -a /etc/hosts
+
       # run tests!
       - run:
           name: run tests
